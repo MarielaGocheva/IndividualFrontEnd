@@ -1,0 +1,90 @@
+.register-picture img {
+    width: 80vh;
+}
+
+.logo-transbg {
+    width: 16vh;
+    margin-left: 8vh;
+}
+
+/* .register-body {
+    display: flex;
+} */
+
+.login-title {
+    margin-top: 17vh;
+    font-size: 48pt;
+}
+
+.register-credentials {
+    justify-content: center;
+}
+
+.email-container {
+    margin-top: 5vh;
+    margin-left: 25vh;
+    text-align: left;
+}
+
+.email-container span {
+    font-size: 16pt;
+    font-weight: 400;
+}
+
+.email-input input {
+    margin-top: 1vh;
+    height: 4.5vh;
+    width: 35vh;
+    border-radius: 10px;
+    background-color: rgb(60, 57, 63, 0.5);
+    border-style: none;
+    color: white;
+}
+
+.password-container {
+    margin-top: 5vh;
+    margin-left: 25vh;
+    text-align: left;
+}
+
+.password-container span {
+    font-size: 16pt;
+    font-weight: 400;
+}
+
+.password-input input {
+    margin-top: 1vh;
+    height: 4.5vh;
+    width: 35vh;
+    border-radius: 10px;
+    background-color: rgb(60, 57, 63, 0.5);
+    border-style: none;
+    color: white;
+}
+
+.register-body {
+    display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+text-align: center;
+    }
+    
+    .register-picture {
+        grid-area: 1 / 1 / 2 / 2;
+         
+        }
+    .register-credentials { grid-area: 1 / 2 / 2 / 6; }
+
+    .remember-me {
+        text-align: left;
+    }
+
+    .forgot-pass {
+        text-align: right;
+    }
+
+    ul {
+        list-style: none;
+    }
