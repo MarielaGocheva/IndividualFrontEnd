@@ -7,31 +7,36 @@ import './styles.css';
 import HomePage from './Pages/HomePage';
 import Playlists from './Pages/PlaylistsPage';
 import RegisterPage from './Pages/RegisterPage';
+import LoginPage from './Pages/LoginPage';
 import {Route, Routes} from "react-router-dom";
+import LoginSpotify from './LoginSpotify';
+
+const code = new URLSearchParams(window.location.search).get('code')
 
 export default function App() {
   return (
-    <>
-    {/* <header className="App-header">
+    code ? 
+    <>  
+    <div className="menu-grid">
+    <div className="menu"> 
+      <img src={logo} className="logo" alt="logo" />
+    <NavBar code = {code}/>
+
+      </div>
+      <div className="content"> <Routes>
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/login://callback' element={<RegisterPage />} />
+        <Route path='/playlists' element={<Playlists />} />
+        <Route path='/login' element={<LoginSpotify />} />
+        <Route path='/login://callback' element={<LoginPage />} />
+      </Routes></div>
+</div> 
+
+    <div className="App">
+                {/* <header className="App-header">
         <img src={logo} className="logo" alt="logo" />
 
       </header> */}
-    <div className="menu-grid">
-<div className="menu"> 
-<img src={logo} className="logo" alt="logo" />
-
-<NavBar />
-      
-      </div>
-<div className="content"> <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/home' element={<RegisterPage />} />
-        <Route path='/playlists' element={<Playlists />} />
-      </Routes></div>
-</div>
-    <div className="App">
-      
-      
       {/* <body>
         <div className="record-contains">
           <span className="circle">
@@ -42,8 +47,10 @@ export default function App() {
         <img src={girl} className="img-girl" alt="girl"/>
         
       </body> */}
+      <HomePage code = {code}/>
     </div>
     </>
+    : <div><LoginSpotify /> <h1>{console.log("logged out")}</h1></div>
   );
 }
 

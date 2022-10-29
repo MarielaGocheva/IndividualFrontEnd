@@ -5,9 +5,18 @@ import Playlist from "../Components/Playlist";
 import SearchBar from "../Components/SearchBar";
 import Song from "../Components/Song";
 
-function HomePage() {
+// import NavBar from "../Components/NavBar";
 
-const [posts, setPosts] = useState([]);
+// import Playlists from './PlaylistsPage';
+// import RegisterPage from './RegisterPage';
+// import LoginPage from './LoginPage';
+// import {Route, Routes} from "react-router-dom";
+// import LoginSpotify from '../LoginSpotify';
+// import logo from '../logoDark.png';
+
+function HomePage() {
+    
+    const [posts, setPosts] = useState([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8080/playlists")
@@ -22,6 +31,23 @@ const [posts, setPosts] = useState([]);
       {/* <div className="your-playlists">
         <p>Your playlists IDs are {posts.map(element => ( <span>{element.id}</span>))}</p>
       </div> */}
+      
+      {/* <div className="menu-grid">
+    <div className="menu"> 
+      <img src={logo} className="logo" alt="logo" />
+    <NavBar />
+
+      </div>
+<div className="content"> <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/home' element={<RegisterPage />} />
+        <Route path='/playlists' element={<Playlists />} />
+        <Route path='/login' element={<LoginSpotify />} />
+        <Route path='/login://callback' element={<LoginPage />} />
+      </Routes></div>
+</div>  */}
+
+    {/* THE CODE ABOVE WAS IN THE APP JS FILE*/}
         <div className="home">
             <div className="last_grid">
                 <h1>Your last work</h1>

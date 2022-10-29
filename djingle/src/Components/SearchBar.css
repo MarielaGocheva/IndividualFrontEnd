@@ -10,7 +10,15 @@
     height: 3.5vh;
     border-radius: 25px;
     text-align: right;
+    border-width: 0ch;
 }
+
+/* .search-bar input :active {
+    border-width: 0ch;
+    color: white;
+    font-size: 12pt;
+    font-weight: 400;
+} */
 
 p{
     font-size: 14pt;

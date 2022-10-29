@@ -2,10 +2,13 @@ import './PlaylistsPage.css';
 import Playlist from '../Components/Playlist';
 import recent from '../rec.png';
 import SearchBar from '../Components/SearchBar';
+import useAuth from '../useAuth';
 
 export default function Playlists(){
+    // const accessToken = useAuth(code)
     return (
         <>
+        {/* <div>{code}</div> */}
         <div className='search-bar'>
             <SearchBar />
         </div>
