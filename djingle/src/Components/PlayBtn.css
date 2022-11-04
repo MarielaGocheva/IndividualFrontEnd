@@ -1,0 +1,26 @@
+.play-btn {
+    background-color: rgb(157, 151, 163, 0.5);
+    width: 5vh;
+    height: 5vh;
+    border-radius: 45px;
+}
+
+.play-btn:hover {
+    cursor: pointer;
+    background-color: blueviolet;
+}
+
+.play-btn:hover .triangle {
+    border-color: transparent transparent transparent rgba(44, 42, 46);   
+}
+
+.triangle {
+    border-style: solid;
+    border-width: 12px 0 12px 24px;
+    border-color: transparent transparent transparent rgb(40, 42, 46, 0.9);
+}
+
+.inside {
+    padding-left: 1.4vh;
+    padding-top: 1.4vh;
+}

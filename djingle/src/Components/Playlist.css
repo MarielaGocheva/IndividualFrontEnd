@@ -1,0 +1,40 @@
+.playlist_img{
+    width: 17vh;
+}
+
+.playlist_container{
+    display: flex;
+}
+
+.description {
+    margin-left: 4vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    position: relative;
+}
+    
+    .title { 
+        grid-area: 1 / 1 / 2 / 2; 
+        font-size: 12pt;
+        margin-top: 2vh;
+        font-weight: 400;
+        position: absolute;
+        bottom: 0;
+    }
+    .playlist_name { 
+        grid-area: 2 / 1 / 3 / 2;
+        font-size: 34pt;
+        font-weight: 700;
+    }
+    .playlist_creator { 
+        grid-area: 3 / 1 / 4 / 2; 
+        font-size: 12pt;
+        opacity: 95%;
+        font-weight: 500;
+        letter-spacing: 1px;
+        position: absolute;
+        bottom: 2vh;
+    }
