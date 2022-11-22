@@ -14,7 +14,7 @@ export default function NavBar({code}){
         <div className="menu-container">
         <ul>    
             <CustomLink to="/home"><img className='menu-icons' src={home} alt='home_icon'></img> Home</CustomLink>
-            <CustomLink to="/playlists"><img className='menu-icons' src={playlists_ico} alt='home_icon'></img> Playlists</CustomLink>          
+            <CustomLink to="/playlists/:userId"><img className='menu-icons' src={playlists_ico} alt='home_icon'></img> Playlists</CustomLink>          
             <CustomLink to="/recentlyplayed"><img className='menu-icons' src={recently} alt='home_icon'></img> Recently played</CustomLink>
             <CustomLink to="/charts"><img className='menu-icons' src={chart} alt='home_icon'></img> Charts</CustomLink>
             <CustomLink to="/login">Login</CustomLink>

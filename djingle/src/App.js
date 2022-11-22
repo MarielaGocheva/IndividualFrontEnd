@@ -10,6 +10,7 @@ import RegisterPage from './Pages/RegisterPage';
 import LoginPage from './Pages/LoginPage';
 import {Route, Routes} from "react-router-dom";
 import LoginSpotify from './LoginSpotify';
+import PlaylistView from './Components/PlaylistView';
 
 const code = new URLSearchParams(window.location.search).get('code')
 
@@ -26,9 +27,10 @@ export default function App() {
       <div className="content"> <Routes>
         <Route path='/home' element={<HomePage />} />
         <Route path='/login://callback' element={<RegisterPage />} />
-        <Route path='/playlists' element={<Playlists />} />
+        <Route path='/playlists/:userId' element={<Playlists />} />
         <Route path='/login' element={<LoginSpotify />} />
         <Route path='/login://callback' element={<LoginPage />} />
+        <Route psth='/playlists/playlist-view' element={<PlaylistView />} />
       </Routes></div>
 </div> 
 
@@ -47,7 +49,7 @@ export default function App() {
         <img src={girl} className="img-girl" alt="girl"/>
         
       </body> */}
-      <HomePage code = {code}/>
+      <HomePage />
     </div>
     </>
     : <div><LoginSpotify /> <h1>{console.log("logged out")}</h1></div>

@@ -17,6 +17,31 @@ h2 {
     font-weight: 600;
 }
 
+.create-playlist{
+    text-align: right;
+}
+
+.create-playlist-btn {
+    background-color: transparent;
+    border-width: 0;
+    color: white;
+    font-size: larger;
+    margin-left: 1vh;
+    opacity: 50%;
+}
+
+.create-playlist-btn :hover {
+    cursor: pointer;
+}
+
+.create-playlist-btn img {
+    width: 5vh;
+}
+
+.create-playlist-btn span {
+    margin-left: 2vh;
+}
+
 .symbols{
     margin-top: 4vh;
     margin-left: 7.5vh;
