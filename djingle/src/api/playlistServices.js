@@ -10,7 +10,14 @@ const newPlaylist = (userId, name) => {
     })
 }
 
+// const getPlaylistsURL = "/playlists/byUser";
+const getUserPlaylists = (userId) => {
+    console.log("Id to send", userId)
+    return URL.get(playlistsURL + `/${userId}`)
+}
+
 const PlaylistCreation = {
-    newPlaylist
+    newPlaylist,
+    getUserPlaylists
 }     
 export default PlaylistCreation;

@@ -20,6 +20,15 @@
     justify-content: center;
 }
 
+.register-credentials input {
+    height: 4.5vh;
+    width: 35vh;
+    border-radius: 10px;
+    background-color: rgb(60, 57, 63, 0.5);
+    border-style: none;
+    color: white;
+}
+
 .email-container {
     margin-top: 5vh;
     margin-left: 25vh;

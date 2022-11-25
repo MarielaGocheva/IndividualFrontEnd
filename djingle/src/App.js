@@ -26,10 +26,11 @@ export default function App() {
       </div>
       <div className="content"> <Routes>
         <Route path='/home' element={<HomePage />} />
-        <Route path='/login://callback' element={<RegisterPage />} />
+        <Route path='/:email' element={<LoginPage />} />
         <Route path='/playlists/:userId' element={<Playlists />} />
         <Route path='/login' element={<LoginSpotify />} />
-        <Route path='/login://callback' element={<LoginPage />} />
+        <Route path='/register' element={<RegisterPage />} />
+        {/* <Route path='/login://callback' element={<LoginPage />} /> */}
         <Route psth='/playlists/playlist-view' element={<PlaylistView />} />
       </Routes></div>
 </div> 
@@ -50,9 +51,17 @@ export default function App() {
         
       </body> */}
       <HomePage />
+      {/* <script>{window.location.href="http://localhost:3000/home"}</script> */}
     </div>
     </>
-    : <div><LoginSpotify /> <h1>{console.log("logged out")}</h1></div>
+    : <div>
+      <Routes>
+      <Route path='/:email' element={<LoginPage />} />
+      <Route path='/register' element={<RegisterPage />} />
+      </Routes>
+      <LoginPage /> 
+      <h1>{console.log("logged out")}</h1>
+      </div>
   );
 }
 

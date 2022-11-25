@@ -5,11 +5,16 @@ import SearchBar from '../Components/SearchBar';
 import CreatePlaylist from "../add-playlist-icon.png";
 import useAuth from '../useAuth';
 import PlaylistView from '../Components/PlaylistView';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import PlaylistCreation from '../api/playlistServices';
 
 export default function Playlists(){
     // const accessToken = useAuth(code)
     const [playlist, setPlaylist] = useState("");
+    const [userIdState, setUserIdState] = useState({
+        userId: "2"
+    });
+    const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
 
     const handleCreation = async (e) => {
         e.preventDefault();
@@ -21,6 +26,15 @@ export default function Playlists(){
             return <PlaylistView />;
         }
     }
+
+    useEffect(()=>{
+        (async() => {
+            const response = await PlaylistCreation.getUserPlaylists(userIdState.userId);
+            console.log("Response", response.data.playlists);
+            setPlaylistsToDisplay(response.data.playlists);
+            
+        })();
+    },[]);
 
     return (
         <>
@@ -47,10 +61,18 @@ export default function Playlists(){
                     
                     <div className="DJ-symbol"><p>Date added</p></div>
                     <div className="duration-symbol"><img src={recent} alt='duration'></img></div>
-                    
                 </div>
                 <hr id='pl-hr'></hr>
                 <div className='playlist-containers'>
+
+                    {playlistsToDislay.map(playlist => ( 
+                        <div className='playlist-row'>
+                            <div className='playlist-nr'>1</div>
+                            <div className='pl'><Playlist /></div>
+                            <div className='date-added'>Feb 3, 2022</div>
+                            <div className='pl-duration'>4:12</div>
+                    </div>))}
+
                     <div className='playlist-row'>
                         <div className='playlist-nr'>1</div>
                         <div className='pl'><Playlist /></div>
