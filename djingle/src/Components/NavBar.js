@@ -5,6 +5,7 @@ import recently from '../rec.png';
 import chart from '../chart.png';
 import useAuth from '../useAuth';
 import SearchBar from "./SearchBar";
+import HomePage from "../Pages/HomePage";
 
 export default function NavBar({code}){
     const accessToken = useAuth(code);
@@ -13,7 +14,7 @@ export default function NavBar({code}){
         {/* <h1>{code}</h1> */}
         <div className="menu-container">
         <ul>    
-            <CustomLink to="/home"><img className='menu-icons' src={home} alt='home_icon'></img> Home</CustomLink>
+            <CustomLink to="/"><img className='menu-icons' src={home} alt='home_icon'></img> Home</CustomLink>
             <CustomLink to="/playlists/:userId"><img className='menu-icons' src={playlists_ico} alt='home_icon'></img> Playlists</CustomLink>          
             <CustomLink to="/recentlyplayed"><img className='menu-icons' src={recently} alt='home_icon'></img> Recently played</CustomLink>
             <CustomLink to="/charts"><img className='menu-icons' src={chart} alt='home_icon'></img> Charts</CustomLink>
@@ -22,6 +23,7 @@ export default function NavBar({code}){
         </ul>
         </div>
         <SearchBar accessToken = {accessToken}/>
+       
        
     </nav>
 }

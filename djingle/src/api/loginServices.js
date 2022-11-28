@@ -11,7 +11,7 @@ const login = (email, password) => {
 
 const registerURL = "/users";
 const register = (fname, lname, email, role, password) => {
-    console.log("SENDING", email, "/", password)
+    // console.log("SENDING", email, "/", password)
     return URL.post(registerURL, {
         fname: fname,
         lname: lname,

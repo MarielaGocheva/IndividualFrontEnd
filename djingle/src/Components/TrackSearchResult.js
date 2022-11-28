@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./TrackSearchResult.css";
 import addSong from "../add-icon.png";
+import PlaylistCreation from "../api/playlistServices";
 
 export default function TrackSearchResult({track, chooseTrack}) {
     const [addSongState, setAddSongState] = useState({
@@ -10,13 +11,18 @@ export default function TrackSearchResult({track, chooseTrack}) {
         imageUrl: ""
     })
 
+    const [playlistId, setPlaylistId] = useState(2);
+
     function handlePlay(){
         chooseTrack(track)
     }
 
-    function handleAddSong(){
-        setAddSongState(addSongState.songUri = track.uri, addSongState.artist = track.artist, addSongState.title = track, addSongState.imageUrl = track.albumUrl);
-        console.log("Track to add: ", addSongState.songUri, addSongState.artist, addSongState.duration, addSongState.imageUrl)
+    const handleAddSong = async (e) => {
+        setAddSongState(addSongState.songUri = track.uri, addSongState.artist = track.artist, addSongState.title = track.title, addSongState.imageUrl = track.albumUrl);
+        (async() => {
+            const response = await PlaylistCreation.addSong(playlistId, addSongState.songUri);
+            console.log("Response" + response.data.added);
+        })();
     }
 
     return (
