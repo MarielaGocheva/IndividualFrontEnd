@@ -22,8 +22,6 @@ export default function App() {
 //     optionSuccessStatus:200
 // }
 // app.use(cors(corsOptions));
-var initialLocation = [];
-initialLocation.push(<HomePage />)
 
   return (
     code ? 
@@ -33,13 +31,13 @@ initialLocation.push(<HomePage />)
     <ul>    
         <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
       </ul>
-    <NavBar code = {code}/>
+    <NavBar />
 
       </div>
       <div className="content"> 
      
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<HomePage code = {code}/>} />
         <Route path='/login/:email' element={<LoginPage />} />
         <Route path='/playlists/:userId' element={<Playlists />} />
         <Route path='/login' element={<LoginSpotify />} />

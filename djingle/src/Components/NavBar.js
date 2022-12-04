@@ -7,8 +7,8 @@ import useAuth from '../useAuth';
 import SearchBar from "./SearchBar";
 import HomePage from "../Pages/HomePage";
 
-export default function NavBar({code}){
-    const accessToken = useAuth(code);
+export default function NavBar(){
+    
 
     return <nav className="nav">
         {/* <h1>{code}</h1> */}
@@ -22,7 +22,7 @@ export default function NavBar({code}){
             <CustomLink to="/login://callback">callback</CustomLink>
         </ul>
         </div>
-        <SearchBar accessToken = {accessToken}/>
+        {/* <SearchBar accessToken = {accessToken}/> */}
        
        
     </nav>

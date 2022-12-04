@@ -136,3 +136,18 @@ opacity: 70%;
             margin-left: 7.5vh;
             margin-top: 3vh;
         }
+
+/*============================================================*/
+input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+ }
+
+input[type=checkbox]:checked ~ .page-overlay {
+    visibility: hidden;
+ }
+
+ input[type=checkbox]:checked ~ .new-playlist-info{
+    visibility: hidden;
+ }

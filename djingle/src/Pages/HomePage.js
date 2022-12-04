@@ -4,6 +4,7 @@ import '../HomePage.css';
 import Playlist from "../Components/Playlist";
 import SearchBar from "../Components/SearchBar";
 import Song from "../Components/Song";
+import useAuth from "../useAuth";
 
 // import NavBar from "../Components/NavBar";
 
@@ -14,7 +15,8 @@ import Song from "../Components/Song";
 // import LoginSpotify from '../LoginSpotify';
 // import logo from '../logoDark.png';
 
-function HomePage() {
+function HomePage({code}) {
+    const accessToken = useAuth(code);
     
     const [posts, setPosts] = useState([]);
 
@@ -93,7 +95,7 @@ function HomePage() {
                 </div>
            </div>
            <div className="search_songs_grid">
-            <div className="search"><SearchBar /></div>
+            <div className="search"><SearchBar accessToken = {accessToken}/></div>
             <div className="top-songs">
                 <h1>Trending songs</h1>
             </div>

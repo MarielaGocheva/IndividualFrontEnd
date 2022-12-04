@@ -7,6 +7,8 @@ import useAuth from '../useAuth';
 import PlaylistView from '../Components/PlaylistView';
 import { useState, useEffect } from 'react';
 import PlaylistCreation from '../api/playlistServices';
+import GeneralPlaylist from '../Components/GeneralPlaylist';
+import newPlaylist from "../newPlaylistImg.png"
 
 export default function Playlists(){
     // const accessToken = useAuth(code)
@@ -15,9 +17,11 @@ export default function Playlists(){
         userId: "2"
     });
     const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
+    const [overlay, setOverlay] = useState(false);
 
-    const handleCreation = async (e) => {
+    const handleCreationRequest = async (e) => {
         e.preventDefault();
+        setOverlay(true);
         setPlaylist("created");
       };
 
@@ -27,19 +31,68 @@ export default function Playlists(){
         }
     }
 
+    const handlePlaylistClick = (e) => {
+        return <PlaylistView />
+    }
+
     useEffect(()=>{
         (async() => {
             const response = await PlaylistCreation.getUserPlaylists(userIdState.userId);
-            console.log("Response", response.data.playlists);
             setPlaylistsToDisplay(response.data.playlists);
             
         })();
     },[]);
 
+    const [newPlaylistState, setNewPlaylistState] = useState({
+        playlistName: "",
+        userId: 2
+    });
+
+    const onInputChange = (e) => {
+        setNewPlaylistState({ ...newPlaylistState, [e.target.name]: e.target.value });
+        console.log("plName after input change: " + newPlaylistState.playlistName)
+    };
+
+    const handleCreation = () => {
+        (async() => {
+            const response = await PlaylistCreation.newPlaylist(newPlaylistState.userId, newPlaylistState.playlistName);
+            console.log("Back-end returned: ", response);
+        })();
+        }
+
+    function showOverlay(){
+        return  <><input type="checkbox" id="toggle-1"></input>
+        <div className="page-overlay"></div>
+        
+        <div className="new-playlist-info">
+            <img src={newPlaylist} alt="decoration"></img>
+            <div className="pl-title">
+            <label>Playlist Title</label>
+            </div>
+            <div> <input name="playlistName" id="playlistName" type="text" placeholder="Give your playlist a title" onChange={onInputChange}></input></div>
+           <div className="pl-create-btn"><label onClick={handleCreation} type="submit">Create</label>
+          </div>   
+        </div></>
+    }
+
+    function normalState(){
+        if(overlay){
+            setOverlay(false)
+            return showOverlay()
+        }
+    }
+
+    useEffect(() => {
+        normalState()
+    }, [overlay])
+    
+
+
     return (
         <>
         {/* <div>{code}</div> */}
         {isCreated()}
+        {normalState()}
         <div className='search-bar'>
             <SearchBar />
         </div>
@@ -47,7 +100,8 @@ export default function Playlists(){
             <h1>My Playlists</h1>
             <span className="nr-playlists">12 playlists</span>
             <div className='create-playlist'>
-                <button className="create-playlist-btn" type='submit' onClick={handleCreation}>
+            
+                <button className="create-playlist-btn" type='submit' onClick={handleCreationRequest} for="toggle-1">
                     <img src={CreatePlaylist} alt="create Playlist button"></img>
                     <span>Create Playlist</span>
                 </button>
@@ -65,15 +119,16 @@ export default function Playlists(){
                 <hr id='pl-hr'></hr>
                 <div className='playlist-containers'>
 
-                    {playlistsToDislay.map(playlist => ( 
-                        <div className='playlist-row'>
-                            <div className='playlist-nr'>1</div>
-                            <div className='pl'><Playlist /></div>
+                    {playlistsToDislay.map((element, index) => ( 
+                        
+                        <div className='playlist-row' onClick={handlePlaylistClick}>
+                            <div className='playlist-nr'>{index+1}</div>
+                            <div className='pl'><GeneralPlaylist title={element.title} userId = {element.userId} /></div>
                             <div className='date-added'>Feb 3, 2022</div>
                             <div className='pl-duration'>4:12</div>
                     </div>))}
 
-                    <div className='playlist-row'>
+                    {/* <div className='playlist-row'>
                         <div className='playlist-nr'>1</div>
                         <div className='pl'><Playlist /></div>
                         <div className='date-added'>Feb 3, 2022</div>
@@ -108,7 +163,7 @@ export default function Playlists(){
                         <div className='pl'><Playlist /></div>
                         <div className='date-added'>Feb 3, 2022</div>
                         <div className='pl-duration'>4:12</div>
-                    </div>
+                    </div> */}
                 </div>
                 </div>
         </>
