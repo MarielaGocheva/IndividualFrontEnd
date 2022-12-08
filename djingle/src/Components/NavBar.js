@@ -23,8 +23,6 @@ export default function NavBar(){
         </ul>
         </div>
         {/* <SearchBar accessToken = {accessToken}/> */}
-       
-       
     </nav>
 }
 

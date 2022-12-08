@@ -6,8 +6,12 @@ import logo from '../logo-transbg.png'
 import SpotifyURL from "../api/SpotifyURL"
 import AccountService from '../api/loginServices';
 import RegisterPage from './RegisterPage';
+import { useAuth } from '../providers/AuthProvider';
+import jwt_decode from "jwt-decode";
 
 export default function LoginPage(){
+    const [user, setUser] = useState(null);
+    const { login } = useAuth();
     const navigate = useNavigate();
     const [credentialsState, setCredentialsState] = useState({
         email: "",
@@ -20,13 +24,29 @@ export default function LoginPage(){
     };
 
 
-    const handleOnClick = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         (async() => {
-            // const response = await AccountService.login(credentialsState.email, credentialsState.password);
-            // console.log("Response" + response.data);
+            const response = await AccountService.login(credentialsState.email, credentialsState.password);
+            if(response.status === 200){
+                setCredentialsState({email:"", password:""})
+                  localStorage.setItem('login_access_token',response.data.accessToken);
+                  var decoded = jwt_decode(localStorage.getItem('login_access_token'));
+                  if(decoded.roles == "DJ"){
+                    login("DJ");
+                  }
+                  else if(decoded.roles == "CLIENT"){
+                    login("CLIENT");
+                  }
+              }
+              else if(response.status === 204){
+                setCredentialsState({email:"", password:"", failureMessage:"Incorrect Credentials"})
+              }          
+            // alert("Response" + response.data);
             // alert(response.data);
             <script>{window.location.href=SpotifyURL}</script>
+            
+            // login(user);
         })();
       };
 
@@ -57,13 +77,13 @@ export default function LoginPage(){
                 <div className='email-container'>
                     <span>Email</span>
                     <div className='email-input'>
-                    <input name='email' type="text" value={credentialsState.email} onChange={onInputChange}></input>
+                    <input name='email' type="text"  onChange={onInputChange}></input>
                     </div>
                 </div>
                 <div className='password-container'>
                     <span>Password</span>
                     <div className='password-input'>
-                    <input name='password' type="text" value={credentialsState.password} onChange={onInputChange}></input>
+                    <input name='password' type="password" value={credentialsState.password} onChange={onInputChange}></input>
                     </div>
                 </div>
                 <div className='forgot-pass'>
@@ -77,7 +97,7 @@ export default function LoginPage(){
                    <label for='remember'>Remember me</label>
                 </div>
                 <div className='regiter-btn'>
-                <a className='btn btn-success btn-lg' onClick={handleOnClick}>
+                <a className='btn btn-success btn-lg' onClick={handleLogin}>
                 Login
             </a>
                 </div>

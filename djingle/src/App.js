@@ -10,21 +10,16 @@ import LoginPage from './Pages/LoginPage';
 import {redirect, Route, Routes, useResolvedPath, useMatch, Link} from "react-router-dom";
 import LoginSpotify from './LoginSpotify';
 import PlaylistView from './Components/PlaylistView';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import RoutePath from './routes/RoutePath';
+import useAuth from './useAuth';
 
 const code = new URLSearchParams(window.location.search).get('code')
 
 export default function App() {
-//   const cors = require('cors');
-// const corsOptions ={
-//     origin:'http://localhost:3000', 
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
-// app.use(cors(corsOptions));
 
   return (
-    code ? 
+    // code ? 
     <>  
     <div className="menu-grid">
     <div className="menu"> 
@@ -35,22 +30,49 @@ export default function App() {
 
       </div>
       <div className="content"> 
-     
-      <Routes>
+        <RoutePath />
+      {/* <Routes>
         <Route path='/' element={<HomePage code = {code}/>} />
         <Route path='/login/:email' element={<LoginPage />} />
         <Route path='/playlists/:userId' element={<Playlists />} />
         <Route path='/login' element={<LoginSpotify />} />
         <Route path='/register' element={<RegisterPage />} />
-        {/* <Route path='/addSong' element={<NavBar />} /> */}
-        {/* <Route path='/login://callback' element={<LoginPage />} /> */}
         <Route psth='/playlists/playlist-view' element={<PlaylistView />} />
       
-      </Routes></div>
+      </Routes> */}
+      </div>
      
 </div>  
     <div className="App">
-                {/* <header className="App-header">
+                
+    </div>
+    </>
+    // : <div>
+    //   <Routes>
+    //   <Route path='/login/:email' element={<LoginPage />} />
+    //   <Route path='/register' element={<RegisterPage />} />
+    //   </Routes>
+    //   <LoginPage /> 
+    //   <h1>UNLUCKY</h1>
+    //   <h1>{console.log("logged out")}</h1>
+    //   </div>
+  );
+}
+
+function CustomLink({to, children, ...props}){
+  const resolvedPath = useResolvedPath(to)
+  const isActive = useMatch({ path: resolvedPath.pathname, end: true})
+return (
+  <li className={isActive? "active" : ""}>
+      <Link to ={to} {...props}>{children}</Link>
+  </li>
+)
+}
+
+// export default App
+
+
+{/* <header className="App-header">
         <img src={logo} className="logo" alt="logo" />
 
       </header> */}
@@ -66,27 +88,3 @@ export default function App() {
       </body> */}
       {/* <HomePage /> */}
       {/* <script>{window.location.href="http://localhost:3000/home"}</script> */}
-    </div>
-    </>
-    : <div>
-      <Routes>
-      <Route path='/login/:email' element={<LoginPage />} />
-      <Route path='/register' element={<RegisterPage />} />
-      </Routes>
-      <LoginPage /> 
-      <h1>{console.log("logged out")}</h1>
-      </div>
-  );
-}
-
-function CustomLink({to, children, ...props}){
-  const resolvedPath = useResolvedPath(to)
-  const isActive = useMatch({ path: resolvedPath.pathname, end: true})
-return (
-  <li className={isActive? "active" : ""}>
-      <Link to ={to} {...props}>{children}</Link>
-  </li>
-)
-}
-
-// export default App
