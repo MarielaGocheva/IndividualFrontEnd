@@ -10,21 +10,21 @@ export default function PlaylistView(){
         userId: 2
     });
 
-    // const onInputChange = (e) => {
-    //     setNewPlaylistState({ ...newPlaylistState, [e.target.name]: e.target.value });
-    //     console.log("plName after input change: " + newPlaylistState.playlistName)
-    // };
+    const onInputChange = (e) => {
+        setNewPlaylistState({ ...newPlaylistState, [e.target.name]: e.target.value });
+        console.log("plName after input change: " + newPlaylistState.playlistName)
+    };
 
-    // const handleCreation = () => {
-    //     (async() => {
-    //         const response = await PlaylistCreation.newPlaylist(newPlaylistState.userId, newPlaylistState.playlistName);
-    //         console.log("Back-end returned: ", response);
-    //     })();
-    //     }
+    const handleCreation = () => {
+        (async() => {
+            const response = await PlaylistCreation.newPlaylist(newPlaylistState.userId, newPlaylistState.playlistName);
+            console.log("Back-end returned: ", response);
+        })();
+        }
 
     return (
         <>
-        {/* <input type="checkbox" id="toggle-1"></input>
+        <input type="checkbox" id="toggle-1"></input>
         <div className="page-overlay"></div>
         
         <div className="new-playlist-info">
@@ -35,7 +35,7 @@ export default function PlaylistView(){
             <div> <input name="playlistName" id="playlistName" type="text" placeholder="Give your playlist a title" onChange={onInputChange}></input></div>
            <div className="pl-create-btn"><label onClick={handleCreation} for="toggle-1" type="submit">Create</label>
           </div>   
-        </div> */}
+        </div>
         {/* CREATED PLAYLIST!!!!!!!!!!! */}
         <div className="created-playlist">
             <div className="playlist-head">

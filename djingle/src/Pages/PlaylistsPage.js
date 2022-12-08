@@ -99,14 +99,14 @@ export default function Playlists(){
           <div className="page-title">
             <h1>My Playlists</h1>
             <span className="nr-playlists">12 playlists</span>
-            <div className='create-playlist'>
+            {/* <div className='create-playlist'> */}
             
-                <button className="create-playlist-btn" type='submit' onClick={handleCreationRequest} for="toggle-1">
+                <button className="create-playlist-btn" type='submit' onClick={handleCreationRequest}>
                     <img src={CreatePlaylist} alt="create Playlist button"></img>
                     <span>Create Playlist</span>
                 </button>
                 {/* <Link to={handleCreation}><img src={CreatePlaylist} alt='create playlist button'></img>Create Playlist</Link> */}
-            </div>
+            {/* </div> */}
           </div>
           <div className='page-content'>
           <div className="symbols">
