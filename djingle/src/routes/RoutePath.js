@@ -7,6 +7,7 @@ import Authentication from "./Authentication";
 import Authorization from "./Authorization";
 import PERMISSIONS from "../permissions/Permissions";
 import Playlists from "../Pages/PlaylistsPage";
+import ArtistPage from "../Pages/ArtistPage";
 
 const RoutePath = () => {
     return (
@@ -28,6 +29,11 @@ const RoutePath = () => {
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
           <Route path='/client' element={<ClientHomePage />} />
+        </Route>
+        <Route
+          element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
+        >
+          <Route path='/artist' element={<ArtistPage id={2}/>} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
       </Routes>

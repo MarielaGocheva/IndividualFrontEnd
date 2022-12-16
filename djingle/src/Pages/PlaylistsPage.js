@@ -9,6 +9,9 @@ import { useState, useEffect } from 'react';
 import PlaylistCreation from '../api/playlistServices';
 import GeneralPlaylist from '../Components/GeneralPlaylist';
 import newPlaylist from "../newPlaylistImg.png"
+import NavBar from '../Components/NavBar';
+import { useResolvedPath, useMatch, Link } from 'react-router-dom';
+import logo from '../'
 
 export default function Playlists(){
     // const accessToken = useAuth(code)
@@ -91,7 +94,15 @@ export default function Playlists(){
     return (
         <>
         {/* <div>{code}</div> */}
-        {isCreated()}
+        <div className="menu-grid">
+    <div className="menu"> 
+    {/* <ul>    
+        <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
+      </ul>  */}
+    <NavBar />
+       </div>
+      <div className="content"> 
+      {isCreated()}
         {normalState()}
         <div className='search-bar'>
             <SearchBar />
@@ -127,45 +138,19 @@ export default function Playlists(){
                             <div className='date-added'>Feb 3, 2022</div>
                             <div className='pl-duration'>4:12</div>
                     </div>))}
-
-                    {/* <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div>
-                    <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div>
-                    <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div>
-                    <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div>
-                    <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div>
-                    <div className='playlist-row'>
-                        <div className='playlist-nr'>1</div>
-                        <div className='pl'><Playlist /></div>
-                        <div className='date-added'>Feb 3, 2022</div>
-                        <div className='pl-duration'>4:12</div>
-                    </div> */}
                 </div>
                 </div>
+        </div>
+        </div>
         </>
     );
 }
+
+// function CustomLink({to, children, ...props}){
+//     const resolvedPath = useResolvedPath(to)
+// return (
+//     <li >
+//         <Link to ={to} {...props}>{children}</Link>
+//     </li>
+// )
+// }

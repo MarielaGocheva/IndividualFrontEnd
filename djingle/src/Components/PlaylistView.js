@@ -22,6 +22,10 @@ export default function PlaylistView(){
         })();
         }
 
+    const handleClose = (e) => {
+        console.log("close")
+    }
+
     return (
         <>
         <input type="checkbox" id="toggle-1"></input>
@@ -29,6 +33,7 @@ export default function PlaylistView(){
         
         <div className="new-playlist-info">
             <img src={newPlaylist} alt="decoration"></img>
+            <div className="close"><label onClick={handleClose}>Close</label></div>
             <div className="pl-title">
             <label>Playlist Title</label>
             </div>

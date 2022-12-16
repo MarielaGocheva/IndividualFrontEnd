@@ -63,7 +63,7 @@ const spotifyApi = new SpotifyWebApi({
              </div>
         </div>
         <div className='search-results'>
-            {searchResults.map(track => (
+            {searchResults.map(track => (console.log("URI:  " + track.uri),
                 <TrackSearchResult track={track} key={track.uri} chooseTrack={chooseTrack} />
             ))}
         </div>

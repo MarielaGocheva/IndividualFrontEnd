@@ -32,25 +32,20 @@
       box-shadow: 2px 10px 25px #0c0c0c;
 }
 
-input[type=checkbox] {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
- }
 
-input[type=checkbox]:checked ~ .page-overlay {
-    visibility: hidden;
- }
-
- input[type=checkbox]:checked ~ .new-playlist-info{
-    visibility: hidden;
- }
 
 .new-playlist-info img {
     position: absolute;
     left: 0;
     width: 45vh;
     color: white;
+}
+
+.close {
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    width: 30vh;
 }
 
 .pl-title {

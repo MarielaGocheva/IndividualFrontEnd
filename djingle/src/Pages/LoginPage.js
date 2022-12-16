@@ -8,8 +8,17 @@ import AccountService from '../api/loginServices';
 import RegisterPage from './RegisterPage';
 import { useAuth } from '../providers/AuthProvider';
 import jwt_decode from "jwt-decode";
+import useSpotifyAuth from '../useAuth';
+import SpotifyAccess from '../providers/SpotifyAccess';
+import LoginSpotify from '../LoginSpotify';
+
+const code = new URLSearchParams(window.location.search).get('code')
 
 export default function LoginPage(){
+    if(code){
+        SpotifyAccess({code})
+    }
+    
     const [user, setUser] = useState(null);
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -20,12 +29,12 @@ export default function LoginPage(){
 
     const onInputChange = (e) => {
         setCredentialsState({ ...credentialsState, [e.target.name]: e.target.value });
-        console.log("Input changed: ", credentialsState.email, credentialsState.password)
     };
 
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        // <script>{window.location.href=SpotifyURL}</script>
         (async() => {
             const response = await AccountService.login(credentialsState.email, credentialsState.password);
             if(response.status === 200){
@@ -38,16 +47,13 @@ export default function LoginPage(){
                   else if(decoded.roles == "CLIENT"){
                     login("CLIENT");
                   }
+                  
               }
               else if(response.status === 204){
                 setCredentialsState({email:"", password:"", failureMessage:"Incorrect Credentials"})
               }          
-            // alert("Response" + response.data);
-            // alert(response.data);
-            <script>{window.location.href=SpotifyURL}</script>
-            
-            // login(user);
         })();
+        // <script>{window.location.href=SpotifyURL}</script>
       };
 
       const handleRedirectToRegister = (e) =>{
@@ -61,12 +67,16 @@ export default function LoginPage(){
     }
 
     useEffect(() =>{
-      },[redirect])
+
+    },[redirect])
 
     return (
         redirect ?
         <RegisterPage /> :
         <>
+        <a className='btn btn-success btn-lg' href={SpotifyURL}>
+                Login With Spotify
+            </a>
         <img className='logo-transbg' src={logo} alt='logo'></img>
         <div className="register-body">
             <div className="register-picture">

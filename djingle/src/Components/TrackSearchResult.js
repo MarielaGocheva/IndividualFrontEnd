@@ -11,7 +11,7 @@ export default function TrackSearchResult({track, chooseTrack}) {
         imageUrl: ""
     })
 
-    const [playlistId, setPlaylistId] = useState(2);
+    const [playlistId, setPlaylistId] = useState(5);
 
     function handlePlay(){
         chooseTrack(track)
@@ -20,6 +20,7 @@ export default function TrackSearchResult({track, chooseTrack}) {
     const handleAddSong = async (e) => {
         setAddSongState(addSongState.songUri = track.uri, addSongState.artist = track.artist, addSongState.title = track.title, addSongState.imageUrl = track.albumUrl);
         (async() => {
+            console.log("SAVING INFO: ", playlistId, addSongState.songUri)
             const response = await PlaylistCreation.addSong(playlistId, addSongState.songUri);
             console.log("Response" + response.data.added);
         })();

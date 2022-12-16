@@ -13,23 +13,37 @@ import PlaylistView from './Components/PlaylistView';
 import { useEffect, useState } from 'react';
 import RoutePath from './routes/RoutePath';
 import useAuth from './useAuth';
+import SpotifyURL from "./api/SpotifyURL"
+import SpotifyAccess from './providers/SpotifyAccess';
 
-const code = new URLSearchParams(window.location.search).get('code')
+// const code = new URLSearchParams(window.location.search).get('code')
+// alert(code);
+// console.log("CODE," , code);
 
 export default function App() {
+  // useEffect(() => {
+  // }, [])
 
+  let nav = [];
+  const getSpotifyAccess = () => {
+    // <script>{window.location.href=SpotifyURL}</script>
+    // nav.push(<NavBar code={code}/>)
+  }
+ 
   return (
     // code ? 
     <>  
-    <div className="menu-grid">
+    {/* <div className="menu-grid">
     <div className="menu"> 
     <ul>    
         <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
-      </ul>
-    <NavBar />
+      </ul> */}
+    {/* <NavBar code={code}/> */}
+    {/* {nav} */}
 
-      </div>
-      <div className="content"> 
+      {/* </div>
+      <div className="content">  */}
+      {/* <SpotifyAccess code={code} /> */}
         <RoutePath />
       {/* <Routes>
         <Route path='/' element={<HomePage code = {code}/>} />
@@ -40,9 +54,9 @@ export default function App() {
         <Route psth='/playlists/playlist-view' element={<PlaylistView />} />
       
       </Routes> */}
-      </div>
-     
-</div>  
+      {/* </div> */}
+{/*      
+</div>   */}
     <div className="App">
                 
     </div>
