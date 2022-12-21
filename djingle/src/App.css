@@ -33,7 +33,7 @@ body {
   justify-content: right;
   align-items: right;
   text-align: right;
-
+  overflow: hidden;
 }
 
 .logo{

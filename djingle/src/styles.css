@@ -15,11 +15,7 @@ body {
 }
 
 body {
-    background-image: url("./bg_grad.png");
-    /* justify-content: right;
-    align-items: right;
-    text-align: right; */
-  
+    background-image: url("./bg_grad.png");  
   }
   
   .logo{

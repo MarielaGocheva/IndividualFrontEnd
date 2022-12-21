@@ -3,6 +3,7 @@ import './SearchBar.css';
 import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import TrackSearchResult from './TrackSearchResult';
+import Player from './Player';
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -15,6 +16,13 @@ const spotifyApi = new SpotifyWebApi({
     const accessToken = props.accessToken;
     const [search, setSearch] = useState("");
     const[searchResults, setSearchResults] = useState([]);
+    const[playingTrack, setPlayingTrack] = useState()
+
+    function chooseTrack(track){
+        setPlayingTrack(track)
+        setSearch('')
+    }
+
     console.log(searchResults);
     useEffect(() => {
     if (!accessToken) return
@@ -55,9 +63,12 @@ const spotifyApi = new SpotifyWebApi({
              </div>
         </div>
         <div className='search-results'>
-            {searchResults.map(track => (
-                <TrackSearchResult track={track} key={track.uri} />
+            {searchResults.map(track => (console.log("URI:  " + track.uri),
+                <TrackSearchResult track={track} key={track.uri} chooseTrack={chooseTrack} />
             ))}
+        </div>
+        <div className='player'>
+            <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
         </div>
         </>
     );  
