@@ -8,6 +8,7 @@ import Authorization from "./Authorization";
 import PERMISSIONS from "../permissions/Permissions";
 import Playlists from "../Pages/PlaylistsPage";
 import ArtistPage from "../Pages/ArtistPage";
+import PlaylistViewClient from "../Pages/PlaylistViewClient";
 
 const RoutePath = () => {
     return (
@@ -34,6 +35,11 @@ const RoutePath = () => {
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
           <Route path='/artist' element={<ArtistPage id={2}/>} />
+        </Route>
+        <Route
+          element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
+        >
+          <Route path='/artist/playlist' element={<PlaylistViewClient />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
       </Routes>

@@ -138,16 +138,16 @@ opacity: 70%;
         }
 
 /*============================================================*/
-input[type=checkbox] {
+input[id="toggle-1"] {
     position: absolute;
     top: -9999px;
     left: -9999px;
  }
 
-input[type=checkbox]:checked ~ .page-overlay {
+input[id="toggle-1"]:checked ~ .page-overlay {
     visibility: hidden;
  }
 
- input[type=checkbox]:checked ~ .new-playlist-info{
+ input[id="toggle-1"]:checked ~ .new-playlist-info{
     visibility: hidden;
  }

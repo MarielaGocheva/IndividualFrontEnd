@@ -3,12 +3,31 @@ import ArtistService from "../api/artistServices";
 import NavBar from "../Components/NavBar";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+import musician from "../musician.webp";
+import PlaylistCreation from "../api/playlistServices";
+import "./ArtistPage.css";
+import pl from "../pl.jpg"
+import pl3 from "../pl3.jpg"
+import pl4 from "../pl4.jpg"
+import pl5 from "../pl5.jpg"
+import pl6 from "../pl6.jpg"
+import pl7 from "../pl7.jpg"
+import pl8 from "../pl8.jpg"
+import play from "../play.png"
+import { useNavigate } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:8080/ws";
 
 export default function ArtistPage({ id }) {
+  const navigate = useNavigate();
   const [messageToSend, setSendMessage] = useState("Enter your message here!");
   const [stompClient, setStompClient] = useState(null);
+  const [artistState, setArtistState] = useState({
+    firstName: "",
+    lastName: "",
+    artistImg: "",
+    playlists: []
+  })
 
   useEffect(() => {
     const socket = new SockJS(ENDPOINT);
@@ -23,7 +42,11 @@ export default function ArtistPage({ id }) {
   }, []);
 
   function sendMessage() {
-    stompClient.send("/app/update", {}, JSON.stringify({ name: messageToSend }));
+    stompClient.send(
+      "/app/update",
+      {},
+      JSON.stringify({ name: messageToSend })
+    );
   }
 
   function onMessageReceived(data) {
@@ -31,32 +54,44 @@ export default function ArtistPage({ id }) {
     alert(result.content);
   }
 
-//   function onClose(){
-//     if(stompClient.readyState == WebSocket.OPEN){
-//         stompClient.close();
-//         alert("CLOSED")
-//     }
-//   }
+  //   function onClose(){
+  //     if(stompClient.readyState == WebSocket.OPEN){
+  //         stompClient.close();
+  //         alert("CLOSED")
+  //     }
+  //   }
 
-stompClient.onClose = function (event) {
-    alert('Client connection closed: ' + event.code);
-};
+  // stompClient.onClose = function (event) {
+  //     alert('Client connection closed: ' + event.code);
+  // };
 
-function disconnect() {
+  function disconnect() {
     if (stompClient != null) {
-        stompClient.disconnect();
-        alert("disconnected")
+      stompClient.disconnect();
+      alert("disconnected");
     }
- }
-
+  }
 
   id = 2;
   useEffect(() => {
     (async () => {
       const response = await ArtistService.findArtist(id);
       console.log("Back-end returned for artist: ", response);
+      setArtistState({firstName: response.data.fname, lastName: response.data.lname, artistImg: response.data.img, playlists: response.data.playlists});
     })();
   }, []);
+
+  const playlistViewURL = "/artist/playlist"
+  const handleShowPlaylist = event => {
+    console.log(event.target.value);
+    // (async () => {
+    //   const response = await PlaylistCreation.findPlaylistByTitleAndUserId(event.target.value, id);
+    //   console.log("Back-end returned for playlist: ", response.data);
+    // })();
+    navigate(playlistViewURL, { state: { title: event.target.value, userId: 2 } });
+  };
+
+
   return (
     <>
       <div className="menu-grid">
@@ -65,12 +100,88 @@ function disconnect() {
         </div>
         <div className="content">
           <h1>ARTIST PAGE</h1>
+          <input
+            onChange={(event) => setSendMessage(event.target.value)}
+          ></input>
+          <button onClick={sendMessage}>Send Message</button>
+          <button onClick={disconnect}>Disconnect</button>
           <div className="artist-body">
-            <input
-              onChange={(event) => setSendMessage(event.target.value)}
-            ></input>
-            <button onClick={sendMessage}>Send Message</button>
-            <button onClick={disconnect}>Disconnect</button>
+            <div className="artist-info">
+              <img className="artist-img" src={musician} alt="musician"></img>
+              <div className="artist-details">
+                <h1>{artistState.firstName + " " + artistState.lastName}</h1>
+                <h1>DJ from Deventer</h1>
+              </div>
+            </div>
+            <div className="artist-playlists">
+            {artistState.playlists.map((element, index) => ( 
+                         <div className="playlist-container">
+                         <img className="playlist-img" src={element.imageUrl} alt="pl-img"></img>
+                         <div className="playlist-details">
+                           <h1>{element.title}</h1>
+                           <h3>Funk, Groove</h3>
+                           <button className="play" id="play" value={element.title} onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                         </div>
+                       </div>
+                        
+                    ))}
+              {/* <div className="column1">
+               
+                </div> */}
+                {/* <div className="playlist-container">
+                  <img className="playlist-img" src={pl5} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>Everyday Vibe</h1>
+                    <h3>Accoustic, Chill</h3>
+                    <button name="Gym Paylist" className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+                <div className="playlist-container">
+                  <img className="playlist-img" src={pl8} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>Cozy Oldies</h1>
+                    <h3>Rock, RnB</h3>
+                    <button name="New Playlist" className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+              </div>
+              <div className="column2">
+              <div className="playlist-container">
+                  <img className="playlist-img" src={pl3} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>Dance Playlist</h1>
+                    <h3>Techno, Rave</h3>
+                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+              <div className="playlist-container">
+                  <img className="playlist-img" src={pl6} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>The 00's</h1>
+                    <h3>Pop, Rock, Punk</h3>
+                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+              </div>
+              <div className="column3">
+              <div className="playlist-container">
+                  <img className="playlist-img" src={pl4} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>Simple Happiness</h1>
+                    <h3>Lofi, Pop</h3>
+                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+              <div className="playlist-container">
+                  <img className="playlist-img" src={pl7} alt="pl-img"></img>
+                  <div className="playlist-details">
+                    <h1>Summer Party</h1>
+                    <h3>Pop, RnB</h3>
+                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                  </div>
+                </div>
+              </div> */}
+            </div>
           </div>
         </div>
       </div>
