@@ -125,62 +125,6 @@ export default function ArtistPage({ id }) {
                        </div>
                         
                     ))}
-              {/* <div className="column1">
-               
-                </div> */}
-                {/* <div className="playlist-container">
-                  <img className="playlist-img" src={pl5} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>Everyday Vibe</h1>
-                    <h3>Accoustic, Chill</h3>
-                    <button name="Gym Paylist" className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-                <div className="playlist-container">
-                  <img className="playlist-img" src={pl8} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>Cozy Oldies</h1>
-                    <h3>Rock, RnB</h3>
-                    <button name="New Playlist" className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-              </div>
-              <div className="column2">
-              <div className="playlist-container">
-                  <img className="playlist-img" src={pl3} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>Dance Playlist</h1>
-                    <h3>Techno, Rave</h3>
-                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-              <div className="playlist-container">
-                  <img className="playlist-img" src={pl6} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>The 00's</h1>
-                    <h3>Pop, Rock, Punk</h3>
-                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-              </div>
-              <div className="column3">
-              <div className="playlist-container">
-                  <img className="playlist-img" src={pl4} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>Simple Happiness</h1>
-                    <h3>Lofi, Pop</h3>
-                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-              <div className="playlist-container">
-                  <img className="playlist-img" src={pl7} alt="pl-img"></img>
-                  <div className="playlist-details">
-                    <h1>Summer Party</h1>
-                    <h3>Pop, RnB</h3>
-                    <button className="play" id="play" onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

@@ -1,0 +1,16 @@
+.info-box-container {
+    height: 40vh;
+    width: 55vh;
+    background-color: #363238;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    border-radius: 10px;
+}
+
+.pl-info-img img {
+    margin-top: 2vh;
+    margin-left: 2vh;
+    width: 15vh;
+    box-shadow: 3px 6px 8px 5px #302c31;
+}

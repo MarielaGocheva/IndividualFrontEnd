@@ -20,18 +20,33 @@ const getUserPlaylists = (userId) => {
     return URL.get(playlistsURL + `/${userId}`)
 }
 
-const addSongURL = "";
-const addSong = (playlistId, songUri) => {
-    return URL.post("/", {
+const getSongsURL = "/playlists/playlistsSongs"
+const getPlaylistSongs = (playlistId) => {
+    return URL.get(getSongsURL + `/${playlistId}`)
+}
+
+const addSongURL = "/songs";
+const addSong = (playlistId, songUri, artist, title, img) => {
+    return URL.post(addSongURL, {
         playlistId: playlistId,
-        songUri: songUri
+        songUri: songUri,
+        artist: artist,
+        title: title,
+        img: img
     })
+}
+
+const deletePlaylistURL = "/playlists";
+const deletePlaylist = (playlistId) => {
+    return URL.delete(deletePlaylistURL + `/${playlistId}`)
 }
 
 const PlaylistCreation = {
     newPlaylist,
     getUserPlaylists,
     addSong,
-    findPlaylistByTitleAndUserId
+    findPlaylistByTitleAndUserId,
+    getPlaylistSongs,
+    deletePlaylist
 }     
 export default PlaylistCreation;

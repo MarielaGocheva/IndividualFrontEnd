@@ -36,11 +36,17 @@ const RoutePath = () => {
         >
           <Route path='/artist' element={<ArtistPage id={2}/>} />
         </Route>
+    
         <Route
-          element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
-        >
-          <Route path='/artist/playlist' element={<PlaylistViewClient />} />
-        </Route>
+          path='/artist/playlist'
+          element={
+            <Authentication>
+              <PlaylistViewClient />
+            </Authentication>
+          }
+        />
+          {/* <Route path='/artist/playlist' element={} /> */}
+      
         <Route path='/login' element={<LoginPage />} />
       </Routes>
     );

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import TrackSearchResult from './TrackSearchResult';
 import Player from './Player';
-
+import PlaylistOptions from './PlaylistOptions';
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'dcffffc36bb0472dbefa128396323bdd',

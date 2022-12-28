@@ -1,0 +1,43 @@
+.options-container {
+    height: 25vh;
+    width: 20vh;
+    background-color: #2f2d30;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    top: 0;
+    right: 12%;
+    z-index: 9;
+}
+
+.pl-option {
+    width: 19vh;
+    margin-left: 0.5vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    padding-left: 1vh;
+}
+
+.pl-option:hover {
+    background-color: #575058cc;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

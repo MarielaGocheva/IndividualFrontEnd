@@ -4,10 +4,15 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import PlaylistCreation from "../api/playlistServices";
+import recent from "../rec.png"
+import pl from "../pl.jpg"
+import Player from "../Components/Player";
 
 export default function PlaylistViewClient() {
+    const accessToken = localStorage.getItem("spotify_access_token")
   const { state } = useLocation();
   const { title, userId } = state;
+  const [trackToPlay, setTrackToPlay] = useState("");
   const [playlistInfo, setPlaylistInfo] = useState({
     id: "",
     userId: "",
@@ -30,8 +35,29 @@ export default function PlaylistViewClient() {
         songs: response.data.playlist.songs,
       });
       console.log("playlist backend: ", response.data);
+    //   console.log("SONG URI ", playlistInfo.songs[0].songUri)
     })();
   }, []);
+
+  const handleSongClik = (e, song) => {
+    console.log(song);
+    setTrackToPlay(song);
+  };
+
+  useEffect(() => {
+
+  }, [trackToPlay])
+
+  var songImg = [];
+  const handleImageCheck = (e, img) => {
+    if(img){
+      console.log("there's image", img)
+      songImg.push(<img src={img}></img>)
+    }
+    else {
+      songImg.push(<img src={pl}></img>)
+    }
+  }
 
   return (
     <>
@@ -41,19 +67,44 @@ export default function PlaylistViewClient() {
         </div>
         <div className="content">
           <div className="playlist-view-client">
-            <div className="playlsit-view-details">
+            <div className="playlist-view-details">
               <div className="playlist-view-img">
                 <img src={playlistInfo.imgUrl} alt="playlist-img"></img>
               </div>
               <div className="playlist-view-info">
                 <div className="playlist-view-title">
-                    <h1>{playlistInfo.title}</h1>
+                  <h1>{playlistInfo.title}</h1>
                 </div>
                 <div className="playlist-view-genres"></div>
               </div>
             </div>
             <div className="playlist-view-songs">
-              <h1>Song</h1>
+            <div className="symbols">
+                    <div className="nr-symbol"><p>#</p></div>
+                    <div className="title-symbol"><p>Title</p></div>
+                    
+                    <div className="album-symbol"><p>Album</p></div>
+                    <div className="duration-symbol"><img src={recent} alt='duration'></img></div>
+                </div>
+              <hr></hr>
+              <div className="playlist-view-songs" id="pl-songs">
+              {playlistInfo.songs.map((element, index) => (
+                
+                <div className="playlist-view-song-row" onClick={(e) => handleSongClik(e, element.songUri)}>
+                    <div className="playlist-view-song-nr">{index+1}</div>
+                    <div className="playlist-view-song-img" ><img src={element.imageUrl} alt="album-img"></img></div>
+                  <div className="playlist-view-song-title">
+                    <h4>{element.title}</h4>
+                    <p>{element.artist}</p>
+                  </div>
+                  <div className="playlist-view-song-album">Out of Exale</div>
+                  <div className="playlist-view-song-duration">2:34</div>
+                </div>
+              ))}
+              </div>
+              <div className='player'>
+            <Player accessToken={accessToken} trackUri={trackToPlay}/>
+        </div>
             </div>
           </div>
         </div>
