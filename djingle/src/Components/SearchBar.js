@@ -23,7 +23,6 @@ const spotifyApi = new SpotifyWebApi({
         setSearch('')
     }
 
-    console.log(searchResults);
     useEffect(() => {
     if (!accessToken) return
     spotifyApi.setAccessToken(accessToken)

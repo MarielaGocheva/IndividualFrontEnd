@@ -71,8 +71,19 @@ width: 85.5%;
 }
 
 .playlist-view-song-row:hover {
-    cursor: pointer;
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
     background-color: #423f44ab;
+}
+
+.onDragEnter {
+    
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+    
 }
 
 .playlist-view-song-nr {
@@ -109,3 +120,4 @@ width: 85.5%;
 .playlist-view-song-row p {
     font-size: 12pt;
 }
+

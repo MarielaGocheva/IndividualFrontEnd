@@ -19,11 +19,14 @@ import editHover from "../edit-hover.png";
 import { useNavigate } from "react-router-dom";
 import InfoBox from "../Components/InfoBox";
 import Swal from "sweetalert2";
+import CreatePlaylistBox from "../Components/CreatePlaylistBox";
 
 export default function Playlists() {
+  const accessToken = localStorage.getItem("spotify_access_token");
   var decoded = jwtDecode(localStorage.getItem("login_access_token"));
   const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate();
+  const [showCreatePlaylistBox, setShowCreatePlaylistBox] = useState(false);
   const [playlist, setPlaylist] = useState("");
   const [userIdState, setUserIdState] = useState({
     userId: decoded.userId,
@@ -31,11 +34,16 @@ export default function Playlists() {
   const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
   const [overlay, setOverlay] = useState(false);
   const [playlistToShowInfo, setPlaylistToShowInfo] = useState([]);
+  const [overlayShown, setOverlayShown] = useState(false);
+
 
   const handleCreationRequest = async (e) => {
     e.preventDefault();
-    setOverlay(true);
-    setPlaylist("created");
+    setShowCreatePlaylistBox((current) => !current);
+    setOverlayShown((current) => !current);
+
+    // setOverlay(true);
+    // setPlaylist("created");
   };
 
   function isCreated() {
@@ -159,10 +167,21 @@ export default function Playlists() {
     normalState();
   }, [overlay]);
 
+  const hideCreatePlaylist = (e) => {
+    setOverlayShown((current) => !current);
+    setShowCreatePlaylistBox((current) => !current);
+  };
+
   return (
     <>
       {/* <div>{code}</div> */}
       <div className="menu-grid">
+      {overlayShown && (
+        <div
+          className="playlist-overlay"
+          onClick={hideCreatePlaylist}
+        ></div>
+      )}
         <div className="menu">
           {/* <ul>    
         <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
@@ -170,14 +189,19 @@ export default function Playlists() {
           <NavBar />
         </div>
         <div className="content">
+        {showCreatePlaylistBox && (
+          <CreatePlaylistBox />
+        )}
           {isCreated()}
           {normalState()}
-          <div className="search-bar">
-            <SearchBar />
-          </div>
+          <div className="pl-search-grid">
+              <div className="search">
+                <SearchBar accessToken={accessToken} />
+              </div>
+          
           <div className="page-title">
             <h1>My Playlists</h1>
-            <span className="nr-playlists">12 playlists</span>
+            <span className="nr-playlists">{playlistsToDislay.length} playlists</span>
             {/* <div className='create-playlist'> */}
 
             <button
@@ -190,6 +214,7 @@ export default function Playlists() {
             </button>
             {/* <Link to={handleCreation}><img src={CreatePlaylist} alt='create playlist button'></img>Create Playlist</Link> */}
             {/* </div> */}
+          </div>
           </div>
           <div className="page-content">
             <div className="symbols">

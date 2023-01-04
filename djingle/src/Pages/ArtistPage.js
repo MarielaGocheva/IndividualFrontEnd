@@ -6,13 +6,6 @@ import Stomp from "stompjs";
 import musician from "../musician.webp";
 import PlaylistCreation from "../api/playlistServices";
 import "./ArtistPage.css";
-import pl from "../pl.jpg"
-import pl3 from "../pl3.jpg"
-import pl4 from "../pl4.jpg"
-import pl5 from "../pl5.jpg"
-import pl6 from "../pl6.jpg"
-import pl7 from "../pl7.jpg"
-import pl8 from "../pl8.jpg"
 import play from "../play.png"
 import { useNavigate } from "react-router-dom";
 

@@ -1,0 +1,27 @@
+#search-row-client {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+}
+
+#search-row-client :hover {
+    background-color: #2f2c31;
+    cursor: pointer;
+}
+
+.result-container {
+    margin-top: 1.2vh;
+    /* background-color: aqua; */
+    width: 30%;
+    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 5fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    position: relative;
+}
+
+.result-container img {
+    width: 9vh;
+}

@@ -1,9 +1,9 @@
-.search-bar{
+.search-bar-client{
     display: flex;
     justify-content: right;
 }
 
-.search-container{
+.search-container-client{
     background-color: rgb(60, 57, 63, 0.5);
     /* opacity: 54%; */
     width: 28vh;
@@ -14,7 +14,7 @@
     color: white;
 }
 
-.search-bar input :active {
+.search-bar-client input :active {
     border-width: 0ch;
     color: white;
     font-size: 12pt;
@@ -29,12 +29,12 @@ p{
     color: rgb(255, 255, 255, 0.5);
 }
 
-.search-container:hover{
+.search-container-client:hover{
     background-color: rgb(88, 83, 92, 0.5);
     cursor: pointer;
 }
 
-.search-container:hover > .search-text p{
+.search-container-client:hover > .search-text p{
     color: rgb(255, 255, 255, 0.9);
 }
 

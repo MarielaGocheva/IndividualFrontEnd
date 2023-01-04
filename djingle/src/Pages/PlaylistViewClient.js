@@ -1,6 +1,6 @@
 import React from "react";
 import "./PlaylistViewClient.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import NavBar from "../Components/NavBar";
 import PlaylistCreation from "../api/playlistServices";
@@ -9,7 +9,34 @@ import pl from "../pl.jpg"
 import Player from "../Components/Player";
 
 export default function PlaylistViewClient() {
-    const accessToken = localStorage.getItem("spotify_access_token")
+  // const [list, setList] = useState(['Item 1','Item 2','Item 3','Item 4','Item 5','Item 6']);
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+    console.log(e.target.innerHTML);
+  };
+
+  const dragEnter = (e, position) => {
+    e.preventDefault();
+    dragOverItem.current = position;
+    console.log(e.target.innerHTML);
+  };
+
+  const drop = (e) => {
+    e.preventDefault();
+
+    const copyListItems = [...playlistInfo.songs];
+    const dragItemContent = copyListItems[dragItem.current];
+    copyListItems.splice(dragItem.current, 1);
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setPlaylistInfo({songs: copyListItems});
+  };
+
+  const accessToken = localStorage.getItem("spotify_access_token");
   const { state } = useLocation();
   const { title, userId } = state;
   const [trackToPlay, setTrackToPlay] = useState("");
@@ -88,9 +115,9 @@ export default function PlaylistViewClient() {
                 </div>
               <hr></hr>
               <div className="playlist-view-songs" id="pl-songs">
-              {playlistInfo.songs.map((element, index) => (
+              {playlistInfo.songs&&playlistInfo.songs.map((element, index) => (
                 
-                <div className="playlist-view-song-row" onClick={(e) => handleSongClik(e, element.songUri)}>
+                <div className="playlist-view-song-row" onClick={(e) => handleSongClik(e, element.songUri)} onDragStart={(e) => dragStart(e, index)} onDragEnter={(e) => dragEnter(e, index)} onDragEnd={drop} key={index} draggable>
                     <div className="playlist-view-song-nr">{index+1}</div>
                     <div className="playlist-view-song-img" ><img src={element.imageUrl} alt="album-img"></img></div>
                   <div className="playlist-view-song-title">

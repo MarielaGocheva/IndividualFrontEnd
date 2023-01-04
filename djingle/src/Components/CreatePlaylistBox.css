@@ -1,0 +1,91 @@
+.create-playlist-box {
+    width: 70vh;
+    height: 50vh;
+    background-color: #2f2c31;
+    position: absolute;
+    left: 32%;
+    top: 22%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px 1px rgba(15, 15, 15, 0.42);
+    z-index: 999;
+    overflow-y: hidden;
+}
+
+.create-playlist-box h3 {
+    margin-top: 3.5vh;
+    font-size: 20pt;
+    font-weight: 500;
+    text-align: center;
+}
+
+.create-playlist-box input {
+    margin-top: 3vh;
+    margin-left: 25%;
+    font-size: 14pt;
+    border-radius: 45px;
+    width: 35vh;
+    height: 4.8vh;
+    background-color: #222024;
+    border-style: none;
+    color: white;
+    padding-left: 2vh;
+}
+
+.new-playlist-genres {
+    margin-top: 2vh;
+    overflow-y: scroll;
+    height: 15.6vh;
+    margin-left: 8%;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.new-playlist-genres button {
+    font-size: 12pt;
+    font-weight: 600;
+    border-style: none;
+    box-shadow: 2px 2px 15px 1px rgba(15, 15, 15, 0.42);
+    color: white;
+    margin-top: 1vh;
+    width: 12vh;
+    height: 4vh;
+    border-radius: 45px;
+}
+
+.new-playlist-genres button:hover {
+    cursor: pointer;
+}
+
+.new-playlist-button button {
+    background-color: white;
+    width: 12vh;
+    height: 4vh;
+    font-size: 14pt;
+    font-weight: 600;
+    border-style: none;
+    box-shadow: 2px 2px 15px 1px rgba(15, 15, 15, 0.42);
+    border-radius: 45px;
+    color: #2f2c31;
+}
+
+.choose-genre-button.active {
+    border-style: solid;
+    border-width: 0.5vh;
+    border-color: white;
+}
+
+.new-playlist-button button:hover {
+    background-color: rgb(223, 223, 223);
+    cursor: pointer;
+}
+
+.new-playlist-button {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

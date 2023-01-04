@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../Components/NavBar";
+import SearchBarClient from "../Components/SearchBarClient";
 
 export default function ClientHomePage(){
     return (
@@ -13,6 +14,7 @@ export default function ClientHomePage(){
        </div>
       <div className="content"> 
         <h1>CLIENT</h1>
+        <SearchBarClient />
         </div>
         </div>
         </>
