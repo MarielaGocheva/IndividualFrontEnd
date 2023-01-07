@@ -3,23 +3,22 @@ import home from "../home_i.png";
 import playlists_ico from "../playlist.png";
 import recently from "../rec.png";
 import chart from "../chart.png";
-import logo from "../logoDark.png";
+import logo from "../logoDark.png"
 
-export default function NavBar() {
+export default function NavBarClient() {
   return (
     <>
-      <nav className="nav-logo">
+    <nav className="nav-logo">
         <ul>
           <LogoLink to="/">
             <img src={logo} className="logo" id="nav-bar-logo" alt="logo" />
           </LogoLink>
         </ul>
       </nav>
-
-      <nav className="nav">
-        {/* <div className="menu-container"> */}
+    <nav className="nav">
+      <div className="menu-container">
         <ul>
-          <CustomLink to="/">
+          <CustomLink to="/client">
             <img className="menu-icons" src={home} alt="home_icon"></img> Home
           </CustomLink>
           <CustomLink to="/playlists/:userId">
@@ -28,7 +27,7 @@ export default function NavBar() {
               src={playlists_ico}
               alt="home_icon"
             ></img>{" "}
-            Playlists
+            Library
           </CustomLink>
           <CustomLink to="/recentlyplayed">
             <img className="menu-icons" src={recently} alt="home_icon"></img>{" "}
@@ -40,8 +39,8 @@ export default function NavBar() {
           </CustomLink>
           {/* <CustomLink to="/artist">Artist</CustomLink> */}
         </ul>
-        {/* </div> */}
-      </nav>
+      </div>
+    </nav>
     </>
   );
 }
@@ -58,11 +57,13 @@ function CustomLink({ to, children, ...props }) {
   );
 }
 
-function LogoLink({ to, children, ...props }) {
-  const resolvedPath = useResolvedPath(to);
-  return (
-    <li>
-      <Link to={to}>{children}</Link>
-    </li>
-  );
+function LogoLink ({to, children, ...props}){
+    const resolvedPath = useResolvedPath(to);
+    return (
+        <li>
+            <Link to={to} >
+                {children}
+            </Link>
+        </li>
+    )
 }

@@ -11,7 +11,6 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 
-
  const SearchBar = (props) => {
     const accessToken = props.accessToken;
     const [search, setSearch] = useState("");

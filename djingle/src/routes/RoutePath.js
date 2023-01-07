@@ -34,7 +34,7 @@ const RoutePath = () => {
         <Route
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
-          <Route path='/artist' element={<ArtistPage id={2}/>} />
+          <Route path='/artist' element={<ArtistPage />} />
         </Route>
     
         <Route

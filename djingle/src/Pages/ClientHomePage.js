@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../Components/NavBar";
+import NavBarClient from "../Components/NavBarClient";
 import SearchBarClient from "../Components/SearchBarClient";
 
 export default function ClientHomePage(){
@@ -7,10 +7,7 @@ export default function ClientHomePage(){
         <>
          <div className="menu-grid">
     <div className="menu"> 
-    <ul>    
-        {/* <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink> */}
-      </ul> 
-    <NavBar />
+    <NavBarClient />
        </div>
       <div className="content"> 
         <h1>CLIENT</h1>

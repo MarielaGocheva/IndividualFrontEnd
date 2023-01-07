@@ -21,13 +21,18 @@ h2 {
     text-align: right;
 }
 
+.create-playlist-container {
+    margin-top: 2vh;
+    margin-left: 4vh;
+}
+
 .create-playlist-btn {
     background-color: transparent;
     border-width: 0;
     color: white;
     font-size: larger;
     margin-left: 1vh;
-    opacity: 50%;
+    opacity: 95%;
 }
 
 .create-playlist-btn :hover {
@@ -40,10 +45,12 @@ h2 {
 
 .create-playlist-btn span {
     margin-left: 2vh;
+    top: -1vh;
+    position: relative;
 }
 
 .symbols{
-    margin-top: 4vh;
+    margin-top: 3vh;
     margin-left: 7.5vh;
     display: flex;
 }
@@ -219,18 +226,18 @@ grid-row-gap: 0px;
     }
 
     .pl-info-btn {
-        position: absolute;
-        margin-left: -8vh;
+        position: relative;
+        margin-left: 0vh;
     }
 
     .pl-edit-btn {
-        position: absolute;
+        position: relative;
         margin-left: 1vh;
     }
 
     .pl-delete-btn {
-        position: absolute;
-        margin-left: 10vh;
+        position: relative;
+        margin-left: 1vh;
     }
 
     .swal2-container.swal2-center>.swal2-popup {
@@ -270,4 +277,22 @@ grid-row-gap: 0px;
         position: absolute;
         z-index: 10;
         background-color: #00000066;
+    }
+
+    .playlist-containers {
+        height: 70vh;
+        overflow-y: scroll;
+    }
+
+    .page-title {
+        display: grid;
+grid-template-columns: 1fr 3fr;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+    }
+
+    .page-title span {
+        font-size: 16pt;
+        margin-top: 6vh;
     }

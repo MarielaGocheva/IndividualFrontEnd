@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import ArtistService from "../api/artistServices";
-import NavBar from "../Components/NavBar";
+import NavBarClient from "../Components/NavBarClient";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import musician from "../musician.webp";
-import PlaylistCreation from "../api/playlistServices";
 import "./ArtistPage.css";
 import play from "../play.png"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:8080/ws";
 
-export default function ArtistPage({ id }) {
+export default function ArtistPage() {
+  const { state } = useLocation();
+  const { id } = state;
   const navigate = useNavigate();
   const [messageToSend, setSendMessage] = useState("Enter your message here!");
   const [stompClient, setStompClient] = useState(null);
@@ -65,7 +66,6 @@ export default function ArtistPage({ id }) {
     }
   }
 
-  id = 2;
   useEffect(() => {
     (async () => {
       const response = await ArtistService.findArtist(id);
@@ -75,13 +75,8 @@ export default function ArtistPage({ id }) {
   }, []);
 
   const playlistViewURL = "/artist/playlist"
-  const handleShowPlaylist = event => {
-    console.log(event.target.value);
-    // (async () => {
-    //   const response = await PlaylistCreation.findPlaylistByTitleAndUserId(event.target.value, id);
-    //   console.log("Back-end returned for playlist: ", response.data);
-    // })();
-    navigate(playlistViewURL, { state: { title: event.target.value, userId: 2 } });
+  const handleShowPlaylist = (e, title) => {
+    navigate(playlistViewURL, { state: { title: title, userId: id } });
   };
 
 
@@ -89,7 +84,7 @@ export default function ArtistPage({ id }) {
     <>
       <div className="menu-grid">
         <div className="menu">
-          <NavBar />
+          <NavBarClient />
         </div>
         <div className="content">
           <h1>ARTIST PAGE</h1>
@@ -113,7 +108,7 @@ export default function ArtistPage({ id }) {
                          <div className="playlist-details">
                            <h1>{element.title}</h1>
                            <h3>Funk, Groove</h3>
-                           <button className="play" id="play" value={element.title} onClick={handleShowPlaylist}><img src={play} alt="play"></img></button>
+                           <button className="play" id="play" onClick={(e) => handleShowPlaylist(e, element.title)}><img src={play} alt="play" onClick={(e) => handleShowPlaylist(e, element.title)}></img></button>
                          </div>
                        </div>
                         

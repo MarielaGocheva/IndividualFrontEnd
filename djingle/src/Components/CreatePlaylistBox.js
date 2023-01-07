@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./CreatePlaylistBox.css";
 import PlaylistCreation from "../api/playlistServices";
 import jwtDecode from "jwt-decode";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+
+const ENDPOINT = "http://localhost:8080/ws";
 
 export default function CreatePlaylistBox() {
   var decoded = jwtDecode(localStorage.getItem("login_access_token"));
@@ -38,6 +42,15 @@ export default function CreatePlaylistBox() {
       setGenres(response.data.genres);
       console.log("GENRES, ", response.data);
     })();
+    const socket = new SockJS(ENDPOINT);
+    const stompClient = Stomp.over(socket);
+    stompClient.connect({}, () => {
+      stompClient.subscribe("/topic/update", (data) => {
+        // console.log(data);
+        // onMessageReceived(data);
+      });
+    });
+    setStompClient(stompClient);
   }, []);
 
   const [isActive, setActive] = useState("active");
@@ -55,7 +68,16 @@ export default function CreatePlaylistBox() {
     console.log(newPlaylistGenres);
   };
 
-  const [formatted, setFormatted] = useState("");
+  const [updateWs, setUpdateWs] = useState("2");
+  const [stompClient, setStompClient] = useState(null);
+
+  function updatePlaylistsWs() {
+    stompClient.send(
+      "/app/update",
+      {},
+      JSON.stringify({ name: updateWs })
+    );
+  }
 
   useEffect(() => {
         setNewPlaylistGenres(chosenGenres);
@@ -73,6 +95,7 @@ export default function CreatePlaylistBox() {
         newPlaylistGenres
       );
       console.log("Back-end returned: ", response);
+      updatePlaylistsWs();
     })();
   };
 

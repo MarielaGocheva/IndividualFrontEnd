@@ -48,6 +48,10 @@ const getGenres = () => {
   return URL.get(genresURL);
 };
 
+const getPlaylistGenres = (playlistId) => {
+    return URL.get(genresURL + `/${playlistId}`);
+}
+
 const searchURL = "/playlists/search";
 const search = (searchItem) => {
     console.log("SEARCH ITEM ", searchItem);
@@ -62,6 +66,7 @@ const PlaylistCreation = {
   getPlaylistSongs,
   deletePlaylist,
   getGenres,
+  getPlaylistGenres,
   search
 };
 export default PlaylistCreation;

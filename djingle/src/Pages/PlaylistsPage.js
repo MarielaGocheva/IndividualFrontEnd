@@ -1,5 +1,4 @@
 import "./PlaylistsPage.css";
-import Playlist from "../Components/Playlist";
 import recent from "../rec.png";
 import SearchBar from "../Components/SearchBar";
 import CreatePlaylist from "../add-playlist-icon.png";
@@ -7,7 +6,6 @@ import PlaylistView from "../Components/PlaylistView";
 import { useState, useEffect } from "react";
 import PlaylistCreation from "../api/playlistServices";
 import GeneralPlaylist from "../Components/GeneralPlaylist";
-import newPlaylist from "../newPlaylistImg.png";
 import NavBar from "../Components/NavBar";
 import jwtDecode from "jwt-decode";
 import info from "../info.png";
@@ -37,20 +35,14 @@ export default function Playlists() {
   const [overlayShown, setOverlayShown] = useState(false);
 
 
+
+
+
   const handleCreationRequest = async (e) => {
     e.preventDefault();
     setShowCreatePlaylistBox((current) => !current);
     setOverlayShown((current) => !current);
-
-    // setOverlay(true);
-    // setPlaylist("created");
   };
-
-  function isCreated() {
-    if (playlist !== "") {
-      return <PlaylistView />;
-    }
-  }
 
   const playlistViewURL = "/artist/playlist";
   const handlePlaylistClick = (e, title) => {
@@ -64,6 +56,12 @@ export default function Playlists() {
         userIdState.userId
       );
       setPlaylistToShowInfo(response.data.playlist);
+    })();
+    (async () => {
+      const response = await PlaylistCreation.getPlaylistGenres(
+        playlistToShowInfo.id
+      );
+      console.log("GENRES, ", response);
     })();
     showInfoBox();
   };
@@ -125,48 +123,6 @@ export default function Playlists() {
     })();
   };
 
-  function showOverlay() {
-    return (
-      <>
-        <input type="checkbox" id="toggle-1"></input>
-        <div className="page-overlay"></div>
-
-        <div className="new-playlist-info">
-          <img src={newPlaylist} alt="decoration"></img>
-          <div className="pl-title">
-            <label>Playlist Title</label>
-          </div>
-          <div>
-            {" "}
-            <input
-              name="playlistName"
-              id="playlistName"
-              type="text"
-              placeholder="Give your playlist a title"
-              onChange={onInputChange}
-            ></input>
-          </div>
-          <div className="pl-create-btn">
-            <label onClick={handleCreation} type="submit">
-              Create
-            </label>
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  function normalState() {
-    if (overlay) {
-      setOverlay(false);
-      return showOverlay();
-    }
-  }
-
-  useEffect(() => {
-    normalState();
-  }, [overlay]);
-
   const hideCreatePlaylist = (e) => {
     setOverlayShown((current) => !current);
     setShowCreatePlaylistBox((current) => !current);
@@ -174,36 +130,27 @@ export default function Playlists() {
 
   return (
     <>
-      {/* <div>{code}</div> */}
       <div className="menu-grid">
-      {overlayShown && (
-        <div
-          className="playlist-overlay"
-          onClick={hideCreatePlaylist}
-        ></div>
-      )}
+        {overlayShown && (
+          <div className="playlist-overlay" onClick={hideCreatePlaylist}></div>
+        )}
         <div className="menu">
-          {/* <ul>    
-        <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
-      </ul>  */}
           <NavBar />
         </div>
         <div className="content">
-        {showCreatePlaylistBox && (
-          <CreatePlaylistBox />
-        )}
-          {isCreated()}
-          {normalState()}
+          {showCreatePlaylistBox && <CreatePlaylistBox />}
           <div className="pl-search-grid">
-              <div className="search">
-                <SearchBar accessToken={accessToken} />
-              </div>
-          
-          <div className="page-title">
-            <h1>My Playlists</h1>
-            <span className="nr-playlists">{playlistsToDislay.length} playlists</span>
-            {/* <div className='create-playlist'> */}
-
+            <div className="search">
+              <SearchBar accessToken={accessToken} />
+            </div>
+            <div className="page-title">
+              <h1>My Playlists</h1>
+              <span className="nr-playlists">
+                {playlistsToDislay.length} playlists
+              </span>
+            </div>
+          </div>
+          <div className="create-playlist-container">
             <button
               className="create-playlist-btn"
               type="submit"
@@ -212,9 +159,6 @@ export default function Playlists() {
               <img src={CreatePlaylist} alt="create Playlist button"></img>
               <span>Create Playlist</span>
             </button>
-            {/* <Link to={handleCreation}><img src={CreatePlaylist} alt='create playlist button'></img>Create Playlist</Link> */}
-            {/* </div> */}
-          </div>
           </div>
           <div className="page-content">
             <div className="symbols">
@@ -224,7 +168,6 @@ export default function Playlists() {
               <div className="title-symbol">
                 <p>Title</p>
               </div>
-
               <div className="DJ-symbol">
                 <p>Date added</p>
               </div>
