@@ -9,6 +9,7 @@ import PERMISSIONS from "../permissions/Permissions";
 import Playlists from "../Pages/PlaylistsPage";
 import ArtistPage from "../Pages/ArtistPage";
 import PlaylistViewClient from "../Pages/PlaylistViewClient";
+import RecentlyPlayed from "../Pages/RecentlyPlayed";
 
 const RoutePath = () => {
     return (
@@ -23,6 +24,14 @@ const RoutePath = () => {
           element={
             <Authentication>
               <HomePage />
+            </Authentication>
+          }
+        />
+        <Route
+          path='/recentlyPlayed'
+          element={
+            <Authentication>
+              <RecentlyPlayed />
             </Authentication>
           }
         />

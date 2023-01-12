@@ -1,3 +1,4 @@
+version: '2.12.1'
 services:
   backend:
     build: 
@@ -11,15 +12,17 @@ services:
     environment:
       MYSQL_HOST: db
     networks:
-      - react-spring
-      - spring-mysql
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
+      - spring-cloud-network
+      # - react-spring
+      # - spring-mysql
+    #   - my-network
+    depends_on:
+      - db
+        # condition: service_healthy
   db:
     image: mariadb:latest
     ports:
-      - "3306:3306"
+      - "3307:3306"
     environment:
       - MYSQL_DATABASE=testdatabase
       - MYSQL_USER=root
@@ -35,7 +38,9 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - spring-mysql
+      - spring-cloud-network
+    #   - spring-mysql
+    #   - my-network
   frontend:
     build:
       context: frontend
@@ -46,7 +51,10 @@ services:
       - ./frontend/src:/code/src
       - /project/node_modules
     networks:
-      - react-spring
+      - spring-cloud-network
+    # - spring-mysql
+      # - react-spring
+    #   - my-network
     depends_on:
       - backend
     expose:
@@ -58,5 +66,9 @@ volumes:
 #   db-password:
 #     file: db/password.txt
 networks:
-  react-spring: {}
-  spring-mysql: {}
+  spring-cloud-network:
+    driver: bridge
+  # my-network:
+  #   name: my-network
+  # react-spring: {}
+  # spring-mysql: {}

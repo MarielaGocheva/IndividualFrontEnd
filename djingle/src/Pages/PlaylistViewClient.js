@@ -7,9 +7,11 @@ import PlaylistCreation from "../api/playlistServices";
 import recent from "../rec.png"
 import pl from "../pl.jpg"
 import Player from "../Components/Player";
+import jwtDecode from "jwt-decode";
 
 export default function PlaylistViewClient() {
   // const [list, setList] = useState(['Item 1','Item 2','Item 3','Item 4','Item 5','Item 6']);
+  const decoded = jwtDecode(localStorage.getItem("login_access_token"));
   const dragItem = useRef();
   const dragOverItem = useRef();
 
@@ -66,13 +68,32 @@ export default function PlaylistViewClient() {
     })();
   }, []);
 
+  useEffect (() => {
+    console.log("SENDING FOR PLAYED : ", playlistInfo.id);
+    (async () => {
+      const response = await PlaylistCreation.setPlayed(playlistInfo.id);
+      console.log(response)
+  })();
+  }, [playlistInfo])
+
   const handleSongClik = (e, song) => {
-    console.log(song);
     setTrackToPlay(song);
+    console.log(song, title, userId);
   };
 
   useEffect(() => {
-
+    if(trackToPlay != ""){
+      console.log("SETTING ", decoded.userId, trackToPlay, title);
+    (async () => {
+      const response = await PlaylistCreation.setRecentlyPlayed(
+        decoded.userId,
+        trackToPlay,
+        title
+      );
+      console.log("Back-end returned: ", response);
+    })();
+    }
+   
   }, [trackToPlay])
 
   var songImg = [];

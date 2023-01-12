@@ -1,0 +1,22 @@
+.history-container {
+    margin-left: 2.5%;
+    width: 95%;
+    height: 60vh;
+    overflow-y: scroll;
+    /* background-color: aqua; */
+}
+
+.history-row {
+    /* background-color: blue; */
+    margin-top: 1vh;
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr) 6fr 3fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.history-row:hover {
+    background-color: #4c484e63;
+    cursor: pointer;
+}

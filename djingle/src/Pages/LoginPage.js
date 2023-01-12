@@ -19,6 +19,13 @@ export default function LoginPage() {
   if (code) {
     SpotifyAccess({ code });
   }
+  // useEffect(() => {
+    
+  //   else {
+  //     navigate(SpotifyURL, {replace: true});
+  //   }
+  // }, [])
+  
 
   const [user, setUser] = useState(null);
   const { login } = useAuth();
@@ -96,7 +103,7 @@ export default function LoginPage() {
           ></img>
           <img src={photo} alt="login-picture"></img>
         </div>
-        <div className="register-credentials">
+        <div className="login-credentials">
           <div className="login-container">
             <h1 className="login-title">LOGIN</h1>
             <div className="email-container">
@@ -141,7 +148,7 @@ export default function LoginPage() {
               <span className="checkmark"></span>
               <label for="remember">Remember me</label>
             </div>
-            <div className="register-btn">
+            <div className="login-btn">
               <a
                 className="btn btn-success btn-lg"
                 onClick={handleLogin}

@@ -7,6 +7,8 @@ import Song from "../Components/Song";
 import useAuth from "../useAuth";
 import SpotifyURL from "../api/SpotifyURL";
 import NavBar from "../Components/NavBar";
+import PlaylistCreation from "../api/playlistServices";
+import jwtDecode from "jwt-decode";
 
 // import NavBar from "../Components/NavBar";
 
@@ -19,43 +21,25 @@ import NavBar from "../Components/NavBar";
 
 function HomePage() {
   const accessToken = localStorage.getItem("spotify_access_token");
-
-  const [posts, setPosts] = useState([]);
+  const decoded = jwtDecode(localStorage.getItem("login_access_token"));
+  const [recentlyPlayed, setRecentlyPlayed] = useState({
+    song: null,
+    playlist: null
+  })
 
   useEffect(() => {
-    axios.get("http://localhost:8080/playlists").then((response) => {
-      console.log(response.data.playlists);
-      setPosts(response.data.playlists);
-    });
+    (async () => {
+      const response = await PlaylistCreation.getRecentlyPlayed(
+        decoded.userId
+      );
+      console.log("Back-end returned: ", response.data);
+      setRecentlyPlayed({song: response.data.song, playlist: response.data.playlist});
+      console.log("AFTER API ", recentlyPlayed.song, recentlyPlayed.playlist);
+    })();
   }, []);
-
-  // useEffect (() => {
-  //     <script>{window.location.href=SpotifyURL}</script>
-  //     localStorage.setItem('spotify_access_token',accessToken);
-  // }, [])
 
   return (
     <>
-      {/* <div className="your-playlists">
-        <p>Your playlists IDs are {posts.map(element => ( <span>{element.id}</span>))}</p>
-      </div> */}
-
-      {/* <div className="menu-grid">
-    <div className="menu"> 
-      <img src={logo} className="logo" alt="logo" />
-    <NavBar />
-
-      </div>
-<div className="content"> <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/home' element={<RegisterPage />} />
-        <Route path='/playlists' element={<Playlists />} />
-        <Route path='/login' element={<LoginSpotify />} />
-        <Route path='/login://callback' element={<LoginPage />} />
-      </Routes></div>
-</div>  */}
-
-      {/* THE CODE ABOVE WAS IN THE APP JS FILE*/}
       <div className="menu-grid">
         <div className="menu">
           <NavBar />
@@ -63,9 +47,9 @@ function HomePage() {
         <div className="content">
           <div className="home">
             <div className="last_grid">
-              <h1>Your last work</h1>
+              <h1>Last played</h1>
               <div className="last_work">
-                <Playlist />
+                <Playlist song={recentlyPlayed.song} playlist={recentlyPlayed.playlist} />
               </div>
             </div>
 
@@ -91,7 +75,7 @@ function HomePage() {
                 <div className="trending-row">
                   <div className="nr">1</div>
                   <div className="pl">
-                    <Playlist />
+                    {/* <Playlist /> */}
                   </div>
                   <div className="pl_creator">DJ Stamat</div>
                   <div className="free">10/10/2022</div>
@@ -99,7 +83,7 @@ function HomePage() {
                 <div className="trending-row">
                   <div className="nr">2</div>
                   <div className="pl">
-                    <Playlist />
+                    {/* <Playlist /> */}
                   </div>
                   <div className="pl_creator">DJ Spitnoise</div>
                   <div className="free">10/10/2022</div>
@@ -107,7 +91,7 @@ function HomePage() {
                 <div className="trending-row">
                   <div className="nr">3</div>
                   <div className="pl">
-                    <Playlist />
+                    {/* <Playlist /> */}
                   </div>
                   <div className="pl_creator">DJ Qvor</div>
                   <div className="free">10/10/2022</div>
@@ -115,7 +99,7 @@ function HomePage() {
                 <div className="trending-row">
                   <div className="nr">4</div>
                   <div className="pl">
-                    <Playlist />
+                    {/* <Playlist /> */}
                   </div>
                   <div className="pl_creator">DJ Desov</div>
                   <div className="free">10/10/2022</div>

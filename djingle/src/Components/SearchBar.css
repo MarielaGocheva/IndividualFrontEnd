@@ -4,7 +4,7 @@
 }
 
 .search-container{
-    background-color: rgb(60, 57, 63, 0.5);
+    background-color: rgb(88, 83, 92, 0.5);
     /* opacity: 54%; */
     width: 28vh;
     height: 3.5vh;
@@ -21,21 +21,26 @@
     font-weight: 400;
 }
 
-p{
-    font-size: 14pt;
+.search-bar input {
+    font-size: 13pt;
+    color: rgba(255, 255, 255, 0.911);
+}
+
+.search-text p {
     margin-top: 0.4vh;
     margin-right: 1vh;
     z-index: 2;
-    color: rgb(255, 255, 255, 0.5);
 }
 
 .search-container:hover{
-    background-color: rgb(88, 83, 92, 0.5);
+    background-color: rgba(116, 111, 121, 0.5);
     cursor: pointer;
 }
 
-.search-container:hover > .search-text p{
-    color: rgb(255, 255, 255, 0.9);
+.search-container:hover > .search-bar input{
+    color: rgb(255, 255, 255);
+    position: relative;
+    z-index: 9;
 }
 
 .search-img{

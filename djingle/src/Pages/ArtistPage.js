@@ -5,7 +5,7 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import musician from "../musician.webp";
 import "./ArtistPage.css";
-import play from "../play.png"
+import play from "../play.png";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const ENDPOINT = "http://localhost:8080/ws";
@@ -20,8 +20,8 @@ export default function ArtistPage() {
     firstName: "",
     lastName: "",
     artistImg: "",
-    playlists: []
-  })
+    playlists: [],
+  });
 
   useEffect(() => {
     const socket = new SockJS(ENDPOINT);
@@ -35,29 +35,28 @@ export default function ArtistPage() {
     setStompClient(stompClient);
   }, []);
 
-  function sendMessage() {
-    stompClient.send(
-      "/app/update",
-      {},
-      JSON.stringify({ name: messageToSend })
-    );
-  }
-
+  const [receivedWsUpdate, setReceivedWsUpdate] = useState(null);
   function onMessageReceived(data) {
     const result = JSON.parse(data.body);
-    alert(result.content);
+    console.log(result.content.id)
+    setReceivedWsUpdate(result.content.id);
   }
 
-  //   function onClose(){
-  //     if(stompClient.readyState == WebSocket.OPEN){
-  //         stompClient.close();
-  //         alert("CLOSED")
-  //     }
-  //   }
-
-  // stompClient.onClose = function (event) {
-  //     alert('Client connection closed: ' + event.code);
-  // };
+  useEffect(() => {
+   if(receivedWsUpdate){
+    (async () => {
+      const response = await ArtistService.findArtist(id);
+      console.log("Back-end returned for artist: ", response);
+      setArtistState({
+        firstName: response.data.fname,
+        lastName: response.data.lname,
+        artistImg: response.data.img,
+        playlists: response.data.playlists,
+      });
+    })();
+    setReceivedWsUpdate(null);
+   } 
+  }, [receivedWsUpdate]);
 
   function disconnect() {
     if (stompClient != null) {
@@ -70,15 +69,19 @@ export default function ArtistPage() {
     (async () => {
       const response = await ArtistService.findArtist(id);
       console.log("Back-end returned for artist: ", response);
-      setArtistState({firstName: response.data.fname, lastName: response.data.lname, artistImg: response.data.img, playlists: response.data.playlists});
+      setArtistState({
+        firstName: response.data.fname,
+        lastName: response.data.lname,
+        artistImg: response.data.img,
+        playlists: response.data.playlists,
+      });
     })();
   }, []);
 
-  const playlistViewURL = "/artist/playlist"
+  const playlistViewURL = "/artist/playlist";
   const handleShowPlaylist = (e, title) => {
     navigate(playlistViewURL, { state: { title: title, userId: id } });
   };
-
 
   return (
     <>
@@ -88,11 +91,6 @@ export default function ArtistPage() {
         </div>
         <div className="content">
           <h1>ARTIST PAGE</h1>
-          <input
-            onChange={(event) => setSendMessage(event.target.value)}
-          ></input>
-          <button onClick={sendMessage}>Send Message</button>
-          <button onClick={disconnect}>Disconnect</button>
           <div className="artist-body">
             <div className="artist-info">
               <img className="artist-img" src={musician} alt="musician"></img>
@@ -102,17 +100,30 @@ export default function ArtistPage() {
               </div>
             </div>
             <div className="artist-playlists">
-            {artistState.playlists.map((element, index) => ( 
-                         <div className="playlist-container">
-                         <img className="playlist-img" src={element.imageUrl} alt="pl-img"></img>
-                         <div className="playlist-details">
-                           <h1>{element.title}</h1>
-                           <h3>Funk, Groove</h3>
-                           <button className="play" id="play" onClick={(e) => handleShowPlaylist(e, element.title)}><img src={play} alt="play" onClick={(e) => handleShowPlaylist(e, element.title)}></img></button>
-                         </div>
-                       </div>
-                        
-                    ))}
+              {artistState.playlists.map((element, index) => (
+                <div className="playlist-container">
+                  <img
+                    className="playlist-img"
+                    src={element.imageUrl}
+                    alt="pl-img"
+                  ></img>
+                  <div className="playlist-details">
+                    <h1>{element.title}</h1>
+                    <h3>Funk, Groove</h3>
+                    <button
+                      className="play"
+                      id="play"
+                      onClick={(e) => handleShowPlaylist(e, element.title)}
+                    >
+                      <img
+                        src={play}
+                        alt="play"
+                        onClick={(e) => handleShowPlaylist(e, element.title)}
+                      ></img>
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

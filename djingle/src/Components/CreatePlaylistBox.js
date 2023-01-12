@@ -68,7 +68,7 @@ export default function CreatePlaylistBox() {
     console.log(newPlaylistGenres);
   };
 
-  const [updateWs, setUpdateWs] = useState("2");
+  const [updateWs, setUpdateWs] = useState(null);
   const [stompClient, setStompClient] = useState(null);
 
   function updatePlaylistsWs() {
@@ -87,15 +87,21 @@ export default function CreatePlaylistBox() {
     setNewPlaylistTitle(e.target.value);
   };
 
+  useEffect(() => {
+    if(updateWs)
+    updatePlaylistsWs();
+    setUpdateWs(null);
+  }, [updateWs])
+
   const handleCreatePlaylist = (e) => {
     (async () => {
       const response = await PlaylistCreation.newPlaylist(
-        decoded.userId,
+        2,
         newPlaylistTitle,
         newPlaylistGenres
       );
+      setUpdateWs(response.data.playlist.id);
       console.log("Back-end returned: ", response);
-      updatePlaylistsWs();
     })();
   };
 

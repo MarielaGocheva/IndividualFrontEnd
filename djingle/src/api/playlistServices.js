@@ -58,6 +58,32 @@ const search = (searchItem) => {
   return URL.get(searchURL + `/${searchItem}`);
 };
 
+const recentlyPlayedURL = "/playlists/recentlyPlayed";
+const setRecentlyPlayed = (userId, songUri, playlistTitle) =>{
+  return URL.post(recentlyPlayedURL, {
+    userId: userId,
+    songUri: songUri,
+    playlistTitle: playlistTitle
+  })
+}
+
+const getRecentlyPlayed = (userId) => {
+  console.log("GET RECENT ID ", userId);
+  return URL.get(recentlyPlayedURL + `/${userId}`);
+}
+
+const historyURL = "/playlists/history";
+const getHistory = (userId) => {
+  return URL.get(historyURL + `/${userId}`);
+}
+
+const setPlayedURL = "/playlists/played";
+const setPlayed = (playlistId) => {
+  return URL.put(setPlayedURL, {
+    playlistId: playlistId
+  })
+}
+
 const PlaylistCreation = {
   newPlaylist,
   getUserPlaylists,
@@ -67,6 +93,10 @@ const PlaylistCreation = {
   deletePlaylist,
   getGenres,
   getPlaylistGenres,
-  search
+  search,
+  setRecentlyPlayed,
+  getRecentlyPlayed,
+  getHistory,
+  setPlayed
 };
 export default PlaylistCreation;

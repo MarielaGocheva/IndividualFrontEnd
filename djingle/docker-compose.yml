@@ -1,65 +1,12 @@
-services:
-  backend:
-    build: 
-      context: ../../../IndividualTrack/individualtrack_mariela_gocheva/Individual
-      dockerfile: Dockerfile
-    restart: always
-    # secrets:
-    #   - db-password
-    ports:
-      - "8080:8080"
-    environment:
-      MYSQL_HOST: db
-    networks:
-      - react-spring
-      - spring-mysql
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
-  db:
-    image: mariadb:latest
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_DATABASE=testdatabase
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=0105
-      - MYSQL_ROOT_PASSWORD=root
-    restart: always
-    # healthcheck:
-    #   test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
-    #   interval: 3s
-    #   retries: 5
-    #   start_period: 30s
-    # secrets:
-    #   - db-password
-    volumes:
-      - db-data:/var/lib/mysql
-    networks:
-      - spring-mysql
-  frontend:
-    build:
-      # context: djingle
-      # target: development
-      context: ""
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    volumes:
-      - ./djingle/src:/code/src
-      - /project/node_modules
-    networks:
-      - react-spring
-    depends_on:
-      - backend
-    expose:
-      - 3306
-      - 33060
-volumes:
-  db-data: {}
-# secrets:
-#   db-password:
-#     file: db/password.txt
-networks:
-  react-spring: {}
-  spring-mysql: {}
+  version: "3"
+  services:
+    frontend:
+      build:
+        context: ""
+      volumes:
+        - ./djingle/src:/code/src
+        - /project/node_modules
+      ports:
+        - 3000:3000
+      image: frontend:latest
+      container_name: frontend-container

@@ -30,7 +30,7 @@ export default function NavBar() {
             ></img>{" "}
             Playlists
           </CustomLink>
-          <CustomLink to="/recentlyplayed">
+          <CustomLink to="/recentlyPlayed">
             <img className="menu-icons" src={recently} alt="home_icon"></img>{" "}
             Recently played
           </CustomLink>

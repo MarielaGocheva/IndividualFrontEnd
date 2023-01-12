@@ -8,14 +8,40 @@ body, html {
     overflow: hidden;
   }
 
+.two-sides {
+    display: grid;
+grid-template-columns: repeat(2, 1fr);
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+height: 28vh;
+}
+
 .register-picture img {
     width: 80vh;
+}
+
+.register-credentials {
+    display: grid;
+    justify-content: center;
+}
+
+.register-credentials span {
+    text-align: left;
+    font-size: 14pt;
 }
 
 #logo-trans {
     position: absolute;
     width: 16vh;
     /* margin-left: 1%; */
+    top: 0.5%;
+}
+
+#register-logo {
+    margin-left: 4%;
+    position: absolute;
+    width: 16vh;
     top: 0.5%;
 }
 
@@ -30,10 +56,6 @@ body, html {
     font-size: 48pt;
 }
 
-.register-credentials {
-    justify-content: center;
-}
-
 .login-container {
     margin-left:12%;
     translate: (-50%);
@@ -43,11 +65,13 @@ body, html {
 
 .register-credentials input {
     height: 4.5vh;
-    width: 40vh;
+    width: 35vh;
     border-radius: 10px;
     background-color: rgb(60, 57, 63, 0.5);
     border-style: none;
     color: white;
+    margin-bottom: 1.5vh;
+    margin-right: 4vh;
 }
 
 .email-container {
@@ -108,7 +132,7 @@ grid-template-columns: repeat(2, 1fr);
 grid-template-rows: 1fr;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
-text-align: center;
+/* text-align: center; */
     }
     
     .register-picture {
@@ -116,7 +140,7 @@ text-align: center;
         grid-area: 1 / 1 / 2 / 2;
          
         }
-    .register-credentials {
+    .login-credentials {
         margin-top: 5vh;
          grid-area: 1 / 2 / 2 / 6; 
         }
@@ -185,14 +209,40 @@ text-align: center;
         list-style: none;
     }
 
-    .register-btn {
+    .login-btn {
         margin-top: 5vh;
+        margin-left: 33%;
     }
 
-    .register-btn a {
+    .login-btn a {
         padding: 0vh 5vh 0.3vh 5vh;
         background-color: #F5F5F5;
         font-size: 24pt;
         font-weight: 600;
         color: #2B252F;
+    }
+
+    .register-btn {
+        margin-left: 38%;
+    }
+
+    .register-btn a {
+        padding: 0vh 3vh 0.3vh 3vh;
+        background-color: #F5F5F5;
+        font-size: 20pt;
+        font-weight: 600;
+        color: #2B252F;
+        margin-top: -20vh;
+    }
+
+    /* .first-name-container {
+        height: 10vh;
+    } */
+
+    .reg-password-container {
+        margin-top: 1vh;
+    }
+
+    #reg-picture {
+        margin-left: 13vh;
     }
