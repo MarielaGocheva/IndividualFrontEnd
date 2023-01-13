@@ -34,17 +34,13 @@ export default function Playlists() {
   const [playlistToShowInfo, setPlaylistToShowInfo] = useState([]);
   const [overlayShown, setOverlayShown] = useState(false);
 
-
-
-
-
   const handleCreationRequest = async (e) => {
     e.preventDefault();
     setShowCreatePlaylistBox((current) => !current);
     setOverlayShown((current) => !current);
   };
 
-  const playlistViewURL = "/artist/playlist";
+  const playlistViewURL = "/playlist";
   const handlePlaylistClick = (e, title) => {
     navigate(playlistViewURL, { state: { title: title, userId: 2 } });
   };
@@ -91,6 +87,8 @@ export default function Playlists() {
     setIsShown((current) => !current);
   }
 
+
+
   useEffect(() => {
     (async () => {
       const response = await PlaylistCreation.getUserPlaylists(
@@ -99,29 +97,6 @@ export default function Playlists() {
       setPlaylistsToDisplay(response.data.playlists);
     })();
   }, []);
-
-  const [newPlaylistState, setNewPlaylistState] = useState({
-    playlistName: "",
-    userId: 2,
-  });
-
-  const onInputChange = (e) => {
-    setNewPlaylistState({
-      ...newPlaylistState,
-      [e.target.name]: e.target.value,
-    });
-    console.log("plName after input change: " + newPlaylistState.playlistName);
-  };
-
-  const handleCreation = () => {
-    (async () => {
-      const response = await PlaylistCreation.newPlaylist(
-        newPlaylistState.userId,
-        newPlaylistState.playlistName
-      );
-      console.log("Back-end returned: ", response);
-    })();
-  };
 
   const hideCreatePlaylist = (e) => {
     setOverlayShown((current) => !current);
@@ -168,11 +143,11 @@ export default function Playlists() {
               <div className="title-symbol">
                 <p>Title</p>
               </div>
-              <div className="DJ-symbol">
-                <p>Date added</p>
+              <div className="DJ-symbol" id="dj-plays">
+                <p>Plays</p>
               </div>
-              <div className="duration-symbol">
-                <img src={recent} alt="duration"></img>
+              <div className="duration-symbol" id="dj-status">
+                <p>Status</p>
               </div>
             </div>
             <hr id="pl-hr"></hr>
@@ -188,7 +163,7 @@ export default function Playlists() {
                   <div className="pl-dj">
                     <GeneralPlaylist
                       title={element.title}
-                      userId={element.userId}
+                      id={element.id}
                       img={element.imageUrl}
                     />
                   </div>
@@ -196,7 +171,7 @@ export default function Playlists() {
                     className="pl-dj-played"
                     onClick={(e) => handlePlaylistClick(e, element.title)}
                   >
-                    1,326
+                    {element.plays}
                   </div>
                   <div
                     className="pl-status-dj"

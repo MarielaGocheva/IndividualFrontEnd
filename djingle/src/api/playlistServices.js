@@ -59,11 +59,12 @@ const search = (searchItem) => {
 };
 
 const recentlyPlayedURL = "/playlists/recentlyPlayed";
-const setRecentlyPlayed = (userId, songUri, playlistTitle) =>{
+const setRecentlyPlayed = (userId, songUri, playlistTitle, artist) =>{
   return URL.post(recentlyPlayedURL, {
     userId: userId,
     songUri: songUri,
-    playlistTitle: playlistTitle
+    playlistTitle: playlistTitle,
+    artist: artist
   })
 }
 
@@ -84,6 +85,29 @@ const setPlayed = (playlistId) => {
   })
 }
 
+const mostPlayedURL = "/playlists/mostPlayed";
+const getMostPlayedPlaylists = () => {
+  return URL.get(mostPlayedURL);
+}
+
+const likePlaylistURL ="/playlists/likePlaylist";
+const likePlaylist = (userId, playlistId) => {
+  return URL.post(likePlaylistURL, {
+    userId: userId,
+    playlistId: playlistId
+  })
+}
+
+const dislikePlaylistURL = "/playlists/dislikePlaylist";
+const dislikePlaylist = (userId, playlistId) => {
+  return URL.delete(dislikePlaylistURL + `/${userId}` + `/${playlistId}`);
+}
+
+const checkIfLikedURL = "/playlists/isLiked";
+const checkIfLiked = (userId, playlistId) => {
+  return URL.get(checkIfLikedURL + `/${userId}` + `/${playlistId}`);
+}
+
 const PlaylistCreation = {
   newPlaylist,
   getUserPlaylists,
@@ -97,6 +121,10 @@ const PlaylistCreation = {
   setRecentlyPlayed,
   getRecentlyPlayed,
   getHistory,
-  setPlayed
+  setPlayed,
+  getMostPlayedPlaylists,
+  likePlaylist,
+  dislikePlaylist,
+  checkIfLiked
 };
 export default PlaylistCreation;

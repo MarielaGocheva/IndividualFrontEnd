@@ -7,8 +7,11 @@ import NavBar from "../Components/NavBar";
 import recent from "../rec.png"
 import pl from "../pl.jpg"
 import Player from "../Components/Player";
+import SongServies from "../api/songServices";
+import jwtDecode from "jwt-decode";
 
 export default function PlaylistView(){
+    const decoded = jwtDecode(localStorage.getItem("login_access_token"));
     const [newPlaylistState, setNewPlaylistState] = useState({
         playlistName: "",
         userId: 2
@@ -30,7 +33,6 @@ export default function PlaylistView(){
   
     const drop = (e) => {
       e.preventDefault();
-  
       const copyListItems = [...playlistInfo.songs];
       const dragItemContent = copyListItems[dragItem.current];
       copyListItems.splice(dragItem.current, 1);
@@ -71,41 +73,27 @@ export default function PlaylistView(){
     }, []);
   
     const handleSongClik = (e, song) => {
-      console.log(song);
+      (async () => {
+        const response = await SongServies.setPlayed(song);
+        console.log("PLAYED SONG RESPONSE ", response);
+      })();
       setTrackToPlay(song);
     };
   
     useEffect(() => {
-  
-    }, [trackToPlay])
-  
-    var songImg = [];
-    const handleImageCheck = (e, img) => {
-      if(img){
-        console.log("there's image", img)
-        songImg.push(<img src={img}></img>)
+      if (trackToPlay != "") {
+        console.log("SETTING ", decoded.userId, trackToPlay, title, userId);
+        (async () => {
+          const response = await PlaylistCreation.setRecentlyPlayed(
+            decoded.userId,
+            trackToPlay,
+            title,
+            decoded.userId
+          );
+          console.log("Back-end returned: ", response);
+        })();
       }
-      else {
-        songImg.push(<img src={pl}></img>)
-      }
-    }
-  
-
-    // const onInputChange = (e) => {
-    //     setNewPlaylistState({ ...newPlaylistState, [e.target.name]: e.target.value });
-    //     console.log("plName after input change: " + newPlaylistState.playlistName)
-    // };
-
-    // const handleCreation = () => {
-    //     (async() => {
-    //         const response = await PlaylistCreation.newPlaylist(newPlaylistState.userId, newPlaylistState.playlistName);
-    //         console.log("Back-end returned: ", response);
-    //     })();
-    //     }
-
-    // const handleClose = (e) => {
-    //     console.log("close")
-    // }
+    }, [trackToPlay]);
 
     return (
         <>

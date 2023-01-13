@@ -10,6 +10,7 @@ import Playlists from "../Pages/PlaylistsPage";
 import ArtistPage from "../Pages/ArtistPage";
 import PlaylistViewClient from "../Pages/PlaylistViewClient";
 import RecentlyPlayed from "../Pages/RecentlyPlayed";
+import PlaylistView from "../Components/PlaylistView";
 
 const RoutePath = () => {
     return (
@@ -51,6 +52,14 @@ const RoutePath = () => {
           element={
             <Authentication>
               <PlaylistViewClient />
+            </Authentication>
+          }
+        />
+        <Route
+          path='/playlist'
+          element={
+            <Authentication>
+              <PlaylistView />
             </Authentication>
           }
         />

@@ -9,6 +9,7 @@ import SpotifyURL from "../api/SpotifyURL";
 import NavBar from "../Components/NavBar";
 import PlaylistCreation from "../api/playlistServices";
 import jwtDecode from "jwt-decode";
+import SongServies from "../api/songServices";
 
 // import NavBar from "../Components/NavBar";
 
@@ -24,19 +25,38 @@ function HomePage() {
   const decoded = jwtDecode(localStorage.getItem("login_access_token"));
   const [recentlyPlayed, setRecentlyPlayed] = useState({
     song: null,
-    playlist: null
-  })
+    playlist: null,
+  });
+  const [trendingPlaylists, setTrendingPlaylists] = useState([]);
+  const [trendingSongs, setTrendingSongs] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const response = await PlaylistCreation.getRecentlyPlayed(
-        decoded.userId
-      );
+      const response = await PlaylistCreation.getRecentlyPlayed(decoded.userId);
       console.log("Back-end returned: ", response.data);
-      setRecentlyPlayed({song: response.data.song, playlist: response.data.playlist});
+      setRecentlyPlayed({
+        song: response.data.song,
+        playlist: response.data.playlist,
+      });
       console.log("AFTER API ", recentlyPlayed.song, recentlyPlayed.playlist);
     })();
+    (async () => {
+      const response = await PlaylistCreation.getMostPlayedPlaylists();
+      setTrendingPlaylists(response.data.mostPlayed);
+    })();
+    (async () => {
+      const response = await SongServies.getMostPlayed();
+      setTrendingSongs(response.data.mostPlayed);
+    })();
   }, []);
+
+  useEffect(() => {
+    console.log("TRENDING SONGSSS, ", trendingSongs);
+  }, [trendingSongs])
+
+  useEffect(() => {
+    console.log("TRENDING STATE ", trendingPlaylists);
+  }, [trendingPlaylists]);
 
   return (
     <>
@@ -49,7 +69,10 @@ function HomePage() {
             <div className="last_grid">
               <h1>Last played</h1>
               <div className="last_work">
-                <Playlist song={recentlyPlayed.song} playlist={recentlyPlayed.playlist} />
+                <Playlist
+                  song={recentlyPlayed.song}
+                  playlist={recentlyPlayed.playlist}
+                />
               </div>
             </div>
 
@@ -67,43 +90,21 @@ function HomePage() {
                   <p>DJ</p>
                 </div>
                 <div className="Date-symbol">
-                  <p>Date</p>
+                  <p>Plays</p>
                 </div>
               </div>
               <hr></hr>
               <div className="trending">
-                <div className="trending-row">
-                  <div className="nr">1</div>
-                  <div className="pl">
-                    {/* <Playlist /> */}
+                {trendingPlaylists.map((element, index) => (
+                  <div className="trending-row">
+                    <div className="nr">{index + 1}</div>
+                    <div className="pl">
+                      <Playlist song={null} playlist={element}/>
+                    </div>
+                    <div className="pl_creator">DJ Stamat</div>
+                    <div className="free">{element.plays}</div>
                   </div>
-                  <div className="pl_creator">DJ Stamat</div>
-                  <div className="free">10/10/2022</div>
-                </div>
-                <div className="trending-row">
-                  <div className="nr">2</div>
-                  <div className="pl">
-                    {/* <Playlist /> */}
-                  </div>
-                  <div className="pl_creator">DJ Spitnoise</div>
-                  <div className="free">10/10/2022</div>
-                </div>
-                <div className="trending-row">
-                  <div className="nr">3</div>
-                  <div className="pl">
-                    {/* <Playlist /> */}
-                  </div>
-                  <div className="pl_creator">DJ Qvor</div>
-                  <div className="free">10/10/2022</div>
-                </div>
-                <div className="trending-row">
-                  <div className="nr">4</div>
-                  <div className="pl">
-                    {/* <Playlist /> */}
-                  </div>
-                  <div className="pl_creator">DJ Desov</div>
-                  <div className="free">10/10/2022</div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="search_songs_grid">
@@ -114,14 +115,17 @@ function HomePage() {
                 <h1>Trending songs</h1>
               </div>
               <div className="song-containers">
+                {trendingSongs.map((element, index) => (
+                  <Song song={element} />
+                ))}
+                {/* <Song />
                 <Song />
                 <Song />
                 <Song />
                 <Song />
                 <Song />
                 <Song />
-                <Song />
-                <Song />
+                <Song /> */}
               </div>
             </div>
           </div>

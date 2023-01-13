@@ -121,3 +121,33 @@ width: 85.5%;
     font-size: 12pt;
 }
 
+.like-playlist button {
+    position: relative;
+    background-color: transparent;
+    border-style: none;
+    font-size: 18pt;
+    color: white;
+    width: 13vw;
+}
+
+.like-playlist :hover {
+    cursor: pointer;
+    opacity: 90%;
+}
+
+.like-playlist{
+    margin-top: 20%;
+margin-left: 20%;
+}
+
+.like-playlist span {
+    font-weight: 700;
+    position: relative;
+    bottom: 1.2vh;
+    margin-right: 1vw;
+}
+
+.like-playlist img {
+    width: 2.4vw;
+}
+
