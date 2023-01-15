@@ -101,7 +101,7 @@ function HomePage() {
                     <div className="pl">
                       <Playlist song={null} playlist={element}/>
                     </div>
-                    <div className="pl_creator">DJ Stamat</div>
+                    <div className="pl_creator">DJ</div>
                     <div className="free">{element.plays}</div>
                   </div>
                 ))}
@@ -118,14 +118,6 @@ function HomePage() {
                 {trendingSongs.map((element, index) => (
                   <Song song={element} />
                 ))}
-                {/* <Song />
-                <Song />
-                <Song />
-                <Song />
-                <Song />
-                <Song />
-                <Song />
-                <Song /> */}
               </div>
             </div>
           </div>

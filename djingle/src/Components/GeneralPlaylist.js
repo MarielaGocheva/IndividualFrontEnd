@@ -6,7 +6,6 @@ import PlaylistCreation from "../api/playlistServices";
 
 export default function GeneralPlaylist({title, id, img}){
     const [playlistGenres, setPlaylistGenres]=useState([]);
-    console.log("ID" + id);
 
       useEffect(() => {
         (async () => {

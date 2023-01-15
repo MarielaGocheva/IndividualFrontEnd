@@ -22,17 +22,17 @@ import CreatePlaylistBox from "../Components/CreatePlaylistBox";
 export default function Playlists() {
   const accessToken = localStorage.getItem("spotify_access_token");
   var decoded = jwtDecode(localStorage.getItem("login_access_token"));
-  const [isShown, setIsShown] = useState(false);
   const navigate = useNavigate();
   const [showCreatePlaylistBox, setShowCreatePlaylistBox] = useState(false);
-  const [playlist, setPlaylist] = useState("");
   const [userIdState, setUserIdState] = useState({
     userId: decoded.userId,
   });
   const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
-  const [overlay, setOverlay] = useState(false);
   const [playlistToShowInfo, setPlaylistToShowInfo] = useState([]);
   const [overlayShown, setOverlayShown] = useState(false);
+  const [showInfoBox, setShowInfoBox] = useState(false);
+  const [infoOverlayShown, setInfoOverlayShown] = useState(false);
+  const [plToShowGenres, setPlToShowGenres] = useState([]);
 
   const handleCreationRequest = async (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ export default function Playlists() {
 
   const playlistViewURL = "/playlist";
   const handlePlaylistClick = (e, title) => {
-    navigate(playlistViewURL, { state: { title: title, userId: 2 } });
+    navigate(playlistViewURL, { state: { title: title, userId: decoded.userId } });
   };
 
   const handleInfoClick = (e, title) => {
@@ -57,9 +57,13 @@ export default function Playlists() {
       const response = await PlaylistCreation.getPlaylistGenres(
         playlistToShowInfo.id
       );
-      console.log("GENRES, ", response);
+      // setPlToShowGenres(response.data);
+      console.log("GENRES, ", response.data);
+
     })();
-    showInfoBox();
+    setShowInfoBox((current) => !current);
+    setInfoOverlayShown((current) => !current);
+    // showInfoBox();
   };
 
   const handleDeleteClick = (e, id) => {
@@ -82,13 +86,6 @@ export default function Playlists() {
     });
   };
 
-  function showInfoBox() {
-    console.log("changing function ", playlistToShowInfo);
-    setIsShown((current) => !current);
-  }
-
-
-
   useEffect(() => {
     (async () => {
       const response = await PlaylistCreation.getUserPlaylists(
@@ -103,17 +100,26 @@ export default function Playlists() {
     setShowCreatePlaylistBox((current) => !current);
   };
 
+  const hideInfoOverlay = (e) => {
+    setInfoOverlayShown((current) => !current);
+    setShowInfoBox((current) => !current);
+  };
+
   return (
     <>
       <div className="menu-grid">
         {overlayShown && (
           <div className="playlist-overlay" onClick={hideCreatePlaylist}></div>
         )}
+        {infoOverlayShown && (
+          <div className="info-overlay" onClick={hideInfoOverlay}></div>
+        )}
         <div className="menu">
           <NavBar />
         </div>
         <div className="content">
           {showCreatePlaylistBox && <CreatePlaylistBox />}
+          {showInfoBox && <InfoBox playlist={playlistToShowInfo}/>}
           <div className="pl-search-grid">
             <div className="search">
               <SearchBar accessToken={accessToken} />
@@ -128,6 +134,7 @@ export default function Playlists() {
           <div className="create-playlist-container">
             <button
               className="create-playlist-btn"
+              id="btn-create-pl"
               type="submit"
               onClick={handleCreationRequest}
             >
@@ -224,7 +231,7 @@ export default function Playlists() {
                   </div>
                 </div>
               ))}
-              {isShown && <InfoBox playlist={playlistToShowInfo} />}
+              {/* {isShown && <InfoBox playlist={playlistToShowInfo} />} */}
             </div>
           </div>
         </div>

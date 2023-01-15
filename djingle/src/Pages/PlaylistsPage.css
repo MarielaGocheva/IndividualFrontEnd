@@ -23,7 +23,6 @@ h2 {
 
 .create-playlist-container {
     margin-top: 2vh;
-    margin-left: 4vh;
 }
 
 .create-playlist-btn {
@@ -278,6 +277,14 @@ grid-row-gap: 0px;
         z-index: 10;
         background-color: #00000066;
     }
+    
+    .info-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        background-color: #00000066;
+    }
 
     .playlist-containers {
         height: 70vh;
@@ -295,4 +302,8 @@ grid-row-gap: 0px;
     .page-title span {
         font-size: 16pt;
         margin-top: 6vh;
+    }
+
+    #btn-create-pl {
+        margin-left: 5vh;
     }

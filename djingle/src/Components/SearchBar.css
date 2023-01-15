@@ -9,7 +9,7 @@
     width: 28vh;
     height: 3.5vh;
     border-radius: 25px;
-    text-align: right;
+    /* text-align: right; */
     border-width: 0ch;
     color: white;
 }
@@ -28,7 +28,7 @@
 
 .search-text p {
     margin-top: 0.4vh;
-    margin-right: 1vh;
+    margin-left: 1vh;
     z-index: 2;
 }
 
@@ -41,6 +41,7 @@
     color: rgb(255, 255, 255);
     position: relative;
     z-index: 9;
+    margin-left: 2vw;
 }
 
 .search-img{

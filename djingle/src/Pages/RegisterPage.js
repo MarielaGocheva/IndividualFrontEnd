@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import photo from "../girlLog.png";
 import "./RegisterPage.css";
-import Button from "../Components/Button";
-import { Link } from "react-router-dom";
 import logo from "../logo-transbg.png";
 import SpotifyURL from "../api/SpotifyURL";
 import AccountService from "../api/loginServices";
+import Swal from "sweetalert2";
 
 export default function RegisterPage() {
   const [credentialsState, setCredentialsState] = useState({
@@ -40,9 +39,15 @@ export default function RegisterPage() {
         credentialsState.password
       );
       console.log("Response" + response.data);
+      Swal.fire("Done!", "Your account was created, please login.", "success");
+      await timeout(2000); //for 1 sec delay
       <script>{(window.location.href = SpotifyURL)}</script>;
     })();
   };
+
+  function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
 
   return (
     <>

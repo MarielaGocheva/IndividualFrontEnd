@@ -11,6 +11,7 @@ import ArtistPage from "../Pages/ArtistPage";
 import PlaylistViewClient from "../Pages/PlaylistViewClient";
 import RecentlyPlayed from "../Pages/RecentlyPlayed";
 import PlaylistView from "../Components/PlaylistView";
+import ClientLibrary from "../Pages/ClientLibrary";
 
 const RoutePath = () => {
     return (
@@ -40,6 +41,11 @@ const RoutePath = () => {
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
           <Route path='/client' element={<ClientHomePage />} />
+        </Route>
+        <Route
+          element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
+        >
+          <Route path='/library' element={<ClientLibrary />} />
         </Route>
         <Route
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}

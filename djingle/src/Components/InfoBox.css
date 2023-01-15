@@ -6,6 +6,7 @@
     top: 30%;
     left: 40%;
     border-radius: 10px;
+    z-index: 999;
 }
 
 .pl-info-img img {
@@ -13,4 +14,14 @@
     margin-left: 2vh;
     width: 15vh;
     box-shadow: 3px 6px 8px 5px #302c31;
+}
+
+.info-flex-header {
+    display: flex;
+}
+
+.info-flex-header h4 {
+    font-size: 32pt;
+    margin-left: 2vw;
+    margin-top: 2vh;
 }

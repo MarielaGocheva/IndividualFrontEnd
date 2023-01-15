@@ -4,6 +4,7 @@ import PlaylistCreation from "../api/playlistServices";
 import jwtDecode from "jwt-decode";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+import Swal from "sweetalert2";
 
 const ENDPOINT = "http://localhost:8080/ws";
 
@@ -46,8 +47,6 @@ export default function CreatePlaylistBox() {
     const stompClient = Stomp.over(socket);
     stompClient.connect({}, () => {
       stompClient.subscribe("/topic/update", (data) => {
-        // console.log(data);
-        // onMessageReceived(data);
       });
     });
     setStompClient(stompClient);
@@ -94,15 +93,26 @@ export default function CreatePlaylistBox() {
   }, [updateWs])
 
   const handleCreatePlaylist = (e) => {
-    (async () => {
-      const response = await PlaylistCreation.newPlaylist(
-        2,
-        newPlaylistTitle,
-        newPlaylistGenres
+    if(newPlaylistTitle){
+      (async () => {
+        const response = await PlaylistCreation.newPlaylist(
+          decoded.userId,
+          newPlaylistTitle,
+          newPlaylistGenres
+        );
+        setUpdateWs(response.data.playlist.id);
+        console.log("Back-end returned: ", response);
+        Swal.fire({showConfirmButton: false, icon:"success", timer: 1500});
+      })();
+    }
+    else {
+      Swal.fire(
+        "No title provided!",
+        "Please fill he field for title.",
+        "warning"
       );
-      setUpdateWs(response.data.playlist.id);
-      console.log("Back-end returned: ", response);
-    })();
+    }
+    
   };
 
   return (

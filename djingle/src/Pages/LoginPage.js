@@ -12,6 +12,7 @@ import useSpotifyAuth from "../useAuth";
 import SpotifyAccess from "../providers/SpotifyAccess";
 import LoginSpotify from "../LoginSpotify";
 import Swal from "sweetalert2";
+import Button from "../Components/Button";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -71,7 +72,6 @@ export default function LoginPage() {
         "warning"
       );
     }
-    // <script>{window.location.href=SpotifyURL}</script>
   };
 
   const handleRedirectToRegister = (e) => {
@@ -139,7 +139,7 @@ export default function LoginPage() {
                 </li>
               </ul>
             </div>
-            <div className="remember-me">
+            {/* <div className="remember-me">
               <input
                 className="remember-checkbox"
                 type="checkbox"
@@ -147,7 +147,7 @@ export default function LoginPage() {
               ></input>
               <span className="checkmark"></span>
               <label for="remember">Remember me</label>
-            </div>
+            </div> */}
             <div className="login-btn">
               <a
                 className="btn btn-success btn-lg"
@@ -158,7 +158,7 @@ export default function LoginPage() {
               </a>
             </div>
             <div className="new-account">
-              <span className="LoginText" onClick={() => redirectToRegister()}>
+              <span className="LoginText" id="redirect-register" onClick={() => redirectToRegister()}>
                 Don't have an account?
               </span>
             </div>

@@ -2,10 +2,14 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import home from "../home_i.png";
 import playlists_ico from "../playlist.png";
 import recently from "../rec.png";
-import chart from "../chart.png";
+import logout from "../djingle-logout.png";
 import logo from "../logoDark.png"
 
 export default function NavBarClient() {
+  const removeAccessToken = () => {
+    localStorage.clear();
+  }
+
   return (
     <>
     <nav className="nav-logo">
@@ -21,7 +25,7 @@ export default function NavBarClient() {
           <CustomLink to="/client">
             <img className="menu-icons" src={home} alt="home_icon"></img> Home
           </CustomLink>
-          <CustomLink to="/playlists/:userId">
+          <CustomLink to="/library">
             <img
               className="menu-icons"
               src={playlists_ico}
@@ -33,11 +37,10 @@ export default function NavBarClient() {
             <img className="menu-icons" src={recently} alt="home_icon"></img>{" "}
             Recently played
           </CustomLink>
-          <CustomLink to="/charts">
-            <img className="menu-icons" src={chart} alt="home_icon"></img>{" "}
-            Charts
+          <CustomLink to="/login" onClick={removeAccessToken}>
+            <img className="menu-icons" src={logout} alt="logout_icon"></img>{" "}
+            Logout
           </CustomLink>
-          {/* <CustomLink to="/artist">Artist</CustomLink> */}
         </ul>
       </div>
     </nav>

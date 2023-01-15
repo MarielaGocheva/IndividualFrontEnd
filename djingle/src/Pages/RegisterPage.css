@@ -246,3 +246,23 @@ grid-row-gap: 0px;
     #reg-picture {
         margin-left: 13vh;
     }
+
+    #redirect-register {
+        font-weight: 600;
+        font-size: 13pt;
+        margin-left: 10vw;
+        /* opacity: 80%; */
+    }
+
+    .new-account span:hover {
+        opacity: 100%;
+        cursor: pointer;
+    }
+
+    .new-account {
+        margin-top: 2vh;
+    }
+
+    .new-account span {
+        opacity: 80%;
+    }

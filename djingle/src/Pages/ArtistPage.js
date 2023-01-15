@@ -95,8 +95,8 @@ export default function ArtistPage() {
             <div className="artist-info">
               <img className="artist-img" src={musician} alt="musician"></img>
               <div className="artist-details">
-                <h1>{artistState.firstName + " " + artistState.lastName}</h1>
-                <h1>DJ from Deventer</h1>
+                <h1 id="artist-name">{artistState.firstName + " " + artistState.lastName}</h1>
+                <h1 id="additional-dj-description">Freelance DJ</h1>
               </div>
             </div>
             <div className="artist-playlists">

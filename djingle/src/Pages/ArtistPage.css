@@ -112,3 +112,13 @@
 .playlist-container h1 {
     margin-left: 0;
 }
+
+#artist-name {
+    margin-top: 8vh;
+    font-size: 62pt;
+    font-weight: 700;
+}
+
+#additional-dj-description {
+    margin-top: 1vh;
+}
