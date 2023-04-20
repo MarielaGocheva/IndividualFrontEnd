@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body, html {
     height: 100%;
     
@@ -8,15 +9,23 @@ body, html {
     overflow: hidden;
   }
 
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
 .register-picture img {
     width: 80vh;
 }
 
+<<<<<<< HEAD
 #logo-trans {
     position: absolute;
     width: 16vh;
     /* margin-left: 1%; */
     top: 0.5%;
+=======
+.logo-transbg {
+    width: 16vh;
+    margin-left: 8vh;
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
 }
 
 /* .register-body {
@@ -24,8 +33,11 @@ body, html {
 } */
 
 .login-title {
+<<<<<<< HEAD
     margin-left: 0;
     text-align: center;
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     margin-top: 17vh;
     font-size: 48pt;
 }
@@ -34,6 +46,7 @@ body, html {
     justify-content: center;
 }
 
+<<<<<<< HEAD
 .login-container {
     margin-left:12%;
     translate: (-50%);
@@ -55,6 +68,12 @@ body, html {
     /* margin-left: 25vh; */
     text-align: left;
     margin-left: 15%;
+=======
+.email-container {
+    margin-top: 5vh;
+    margin-left: 25vh;
+    text-align: left;
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
 }
 
 .email-container span {
@@ -64,8 +83,13 @@ body, html {
 
 .email-input input {
     margin-top: 1vh;
+<<<<<<< HEAD
     height: 5vh;
     width: 42.5vh;
+=======
+    height: 4.5vh;
+    width: 35vh;
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     border-radius: 10px;
     background-color: rgb(60, 57, 63, 0.5);
     border-style: none;
@@ -73,9 +97,14 @@ body, html {
 }
 
 .password-container {
+<<<<<<< HEAD
     margin-left: 15%;
     margin-top: 5vh;
     /* margin-left: 25vh; */
+=======
+    margin-top: 5vh;
+    margin-left: 25vh;
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     text-align: left;
 }
 
@@ -86,12 +115,18 @@ body, html {
 
 .password-input input {
     margin-top: 1vh;
+<<<<<<< HEAD
     height: 5vh;
     width: 42.5vh;
+=======
+    height: 4.5vh;
+    width: 35vh;
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     border-radius: 10px;
     background-color: rgb(60, 57, 63, 0.5);
     border-style: none;
     color: white;
+<<<<<<< HEAD
     font-size: 3vh;
 }
 
@@ -103,6 +138,11 @@ body, html {
     background-size: cover;
     overflow: hidden;
 
+=======
+}
+
+.register-body {
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     display: grid;
 grid-template-columns: repeat(2, 1fr);
 grid-template-rows: 1fr;
@@ -112,6 +152,7 @@ text-align: center;
     }
     
     .register-picture {
+<<<<<<< HEAD
         margin-top: 10vh;
         grid-area: 1 / 1 / 2 / 2;
          
@@ -196,3 +237,21 @@ text-align: center;
         font-weight: 600;
         color: #2B252F;
     }
+=======
+        grid-area: 1 / 1 / 2 / 2;
+         
+        }
+    .register-credentials { grid-area: 1 / 2 / 2 / 6; }
+
+    .remember-me {
+        text-align: left;
+    }
+
+    .forgot-pass {
+        text-align: right;
+    }
+
+    ul {
+        list-style: none;
+    }
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6

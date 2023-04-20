@@ -145,12 +145,3 @@ export default function Playlists(){
         </>
     );
 }
-
-// function CustomLink({to, children, ...props}){
-//     const resolvedPath = useResolvedPath(to)
-// return (
-//     <li >
-//         <Link to ={to} {...props}>{children}</Link>
-//     </li>
-// )
-// }

@@ -1,14 +1,22 @@
+<<<<<<< HEAD
+=======
+import { useState } from "react";
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
 import album_photo from "../audioslave.jpeg";
 import "./Playlist.css";
 
 
 export default function Playlist(){
+<<<<<<< HEAD
     // const [title, setTitle] = useState("Audioslave top 10");
     // const [creator, setCreator] = useState("Chris Cornell");
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     // const[id,setId]=useState('')
     // const[duration,setDuration]=useState('')
     // const[userId, setUserId] = useState('');
     // const[playlists,setPlaylists]=useState([])
+<<<<<<< HEAD
 
     // if(playlistName != null && author != null){
     //     setTitle(playlistName);
@@ -30,6 +38,10 @@ export default function Playlist(){
         // </div>
         // </> 
         // :
+=======
+    
+    return (
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
         <>
         <div className="playlist_container">
             <div className="photo">
@@ -41,6 +53,7 @@ export default function Playlist(){
                 <span className="playlist_creator">Chris Cornell</span>
             </div>
         </div>
+<<<<<<< HEAD
         </> 
     );
 }
@@ -68,3 +81,8 @@ export default function Playlist(){
 // }
 
 // export  {Playlist, PlaylistElement};
+=======
+        </>
+    );
+}
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6

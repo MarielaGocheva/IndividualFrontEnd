@@ -7,24 +7,35 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.0.0",
+<<<<<<< HEAD
     "jwt-decode": "^3.1.2",
     "net": "^1.0.2",
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "react-spotify-web-playback": "^0.10.0",
     "sockjs-client": "^1.6.1",
     "spotify-web-api-node": "^5.0.2",
     "stompjs": "^2.3.3",
+=======
+    "spotify-web-api-node": "^5.0.2",
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+<<<<<<< HEAD
     "eject": "react-scripts eject",
     "proxy": "http://localhost:3000"
+=======
+    "eject": "react-scripts eject"
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
   },
   "eslintConfig": {
     "extends": [

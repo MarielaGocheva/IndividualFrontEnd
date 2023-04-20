@@ -15,7 +15,15 @@ body {
 }
 
 body {
+<<<<<<< HEAD
     background-image: url("./bg_grad.png");  
+=======
+    background-image: url("./bg_grad.png");
+    /* justify-content: right;
+    align-items: right;
+    text-align: right; */
+  
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
   }
   
   .logo{

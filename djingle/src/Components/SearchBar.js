@@ -3,7 +3,10 @@ import './SearchBar.css';
 import { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
 import TrackSearchResult from './TrackSearchResult';
+<<<<<<< HEAD
 import Player from './Player';
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -16,6 +19,7 @@ const spotifyApi = new SpotifyWebApi({
     const accessToken = props.accessToken;
     const [search, setSearch] = useState("");
     const[searchResults, setSearchResults] = useState([]);
+<<<<<<< HEAD
     const[playingTrack, setPlayingTrack] = useState()
 
     function chooseTrack(track){
@@ -23,6 +27,8 @@ const spotifyApi = new SpotifyWebApi({
         setSearch('')
     }
 
+=======
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
     console.log(searchResults);
     useEffect(() => {
     if (!accessToken) return
@@ -63,6 +69,7 @@ const spotifyApi = new SpotifyWebApi({
              </div>
         </div>
         <div className='search-results'>
+<<<<<<< HEAD
             {searchResults.map(track => (console.log("URI:  " + track.uri),
                 <TrackSearchResult track={track} key={track.uri} chooseTrack={chooseTrack} />
             ))}
@@ -70,6 +77,12 @@ const spotifyApi = new SpotifyWebApi({
         <div className='player'>
             <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
         </div>
+=======
+            {searchResults.map(track => (
+                <TrackSearchResult track={track} key={track.uri} />
+            ))}
+        </div>
+>>>>>>> 853325d4435a0915e0e5eaecc25e6a655a03ebf6
         </>
     );  
 }
