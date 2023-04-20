@@ -1,0 +1,45 @@
+.search-bar-client{
+    display: flex;
+    justify-content: right;
+}
+
+.search-container-client{
+    background-color: rgb(88, 83, 92, 0.5);
+    /* opacity: 54%; */
+    width: 28vh;
+    height: 3.5vh;
+    border-radius: 25px;
+    text-align: right;
+    border-width: 0ch;
+    color: white;
+}
+
+.search-bar-client input :active {
+    border-width: 0ch;
+    color: white;
+    font-size: 12pt;
+    font-weight: 400;
+}
+
+p{
+    font-size: 14pt;
+    margin-top: 0.4vh;
+    margin-right: 1vh;
+    z-index: 2;
+    color: rgb(255, 255, 255, 0.5);
+}
+
+.search-container-client:hover{
+    background-color: rgb(88, 83, 92, 0.5);
+    cursor: pointer;
+}
+
+.search-container-client:hover > .search-text p{
+    color: rgb(255, 255, 255, 0.9);
+}
+
+.search-img{
+    width: 2.7vh;
+    margin-left: 1.7vh;
+    margin-top: 0.5vh;
+}

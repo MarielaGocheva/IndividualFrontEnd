@@ -7,9 +7,147 @@ grid-column-gap: 0px;
 grid-row-gap: 0px;
 }
 
-.playlist-view-details { grid-area: 1 / 1 / 2 / 2; }
-.playlist-view-songs { grid-area: 2 / 1 / 3 / 2; }
+.playlist-view-details { 
+    margin-top: 5%;
+    margin-left: 5%;
+    grid-area: 1 / 1 / 2 / 2;
+    display: flex; 
+}
+
+.playlist-view-title h1 {
+    font-size: 56pt;
+    font-weight: 700;
+    margin-top: 13vh;
+    margin-left: 2vh;
+}
+
+.playlist-view-songs { 
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.playlist-view-songs hr {
+    width: 94%;
+    margin-bottom: 1vh;
+}
+
+.playlist-view-songs .symbols {
+    grid-template-columns: 1fr 5fr 3fr 2fr;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+width: 85.5%;
+}
+
+.playlist-view-songs .duration-symbol {
+    margin-left: 0vh;
+}
+
+.playlist-view-songs .album-symbol {
+    margin-left: -9vh;
+}
 
 .playlist-view-img img {
     width: 30vh;
 }
+
+#pl-songs {
+    height: 47vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.playlist-view-song-row {
+    margin-left: 5vh;
+    display: flex;
+    height: 7vh;
+    width: 94%;
+    /* background-color: cadetblue;
+    margin-top: 1vh; */
+    display: grid;
+    grid-template-columns: repeat(2, 0.5fr) 6fr 3fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.playlist-view-song-row:hover {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    background-color: #423f44ab;
+}
+
+.onDragEnter {
+    
+        cursor: grabbing;
+        cursor: -moz-grabbing;
+        cursor: -webkit-grabbing;
+    
+}
+
+.playlist-view-song-nr {
+    font-size: 14pt;
+    margin-left: 2.5vh;
+    margin-top: 27%;
+}
+
+.playlist-view-song-album {
+    margin-top: 2vh;
+    text-align: center;
+}
+
+.playlist-view-song-duration {
+    margin-top: 2vh;
+    text-align: center;
+}
+
+.playlist-view-song-img img {
+    margin-top: 0.5vh;
+    width: 6vh;
+}
+
+.playlist-view-song-nr { grid-area: 1 / 1 / 2 / 2; }
+.playlist-view-song-img { grid-area: 1 / 2 / 2 / 3; }
+.playlist-view-song-title { 
+    margin-left: 2vh;
+    margin-top: 1vh;
+    grid-area: 1 / 3 / 2 / 4; }
+.playlist-view-song-album { grid-area: 1 / 4 / 2 / 5; }
+.playlist-view-song-duration { 
+    grid-area: 1 / 5 / 2 / 6; }
+
+.playlist-view-song-row p {
+    font-size: 12pt;
+}
+
+.like-playlist button {
+    position: relative;
+    background-color: transparent;
+    border-style: none;
+    font-size: 18pt;
+    color: white;
+    width: 13vw;
+}
+
+.like-playlist :hover {
+    cursor: pointer;
+    opacity: 90%;
+}
+
+.like-playlist{
+    margin-top: 20%;
+margin-left: 20%;
+}
+
+.like-playlist span {
+    font-weight: 700;
+    position: relative;
+    bottom: 1.2vh;
+    margin-right: 1vw;
+}
+
+.like-playlist img {
+    width: 2.4vw;
+}
+

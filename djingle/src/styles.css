@@ -79,6 +79,10 @@ min-height: 100vh;
     padding-bottom: 0.5vh;
 }
 
+.nav-logo {
+    margin-top: 2vh;
+    margin-left: -4.5vh;
+}
 
 .nav li.active {
 background-color: rgb(47, 44, 49, 0.7);

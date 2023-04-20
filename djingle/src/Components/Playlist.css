@@ -37,4 +37,17 @@
         letter-spacing: 1px;
         position: absolute;
         bottom: 2vh;
+        white-space: nowrap;
+    }
+
+    #general-pl {
+        margin-left: 0vw;
+    }
+
+    #dj-plays {
+        margin-left: -2.1vw;
+    }
+
+    #dj-status {
+        margin-left: -4.4vw;
     }

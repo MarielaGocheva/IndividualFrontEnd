@@ -11,6 +11,8 @@ import jwt_decode from "jwt-decode";
 import useSpotifyAuth from "../useAuth";
 import SpotifyAccess from "../providers/SpotifyAccess";
 import LoginSpotify from "../LoginSpotify";
+import Swal from "sweetalert2";
+import Button from "../Components/Button";
 
 const code = new URLSearchParams(window.location.search).get("code");
 
@@ -18,13 +20,20 @@ export default function LoginPage() {
   if (code) {
     SpotifyAccess({ code });
   }
+  // useEffect(() => {
+    
+  //   else {
+  //     navigate(SpotifyURL, {replace: true});
+  //   }
+  // }, [])
+  
 
   const [user, setUser] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
   const [credentialsState, setCredentialsState] = useState({
-    email: "",
-    password: "",
+    email: null,
+    password: null
   });
 
   const onInputChange = (e) => {
@@ -36,30 +45,33 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // <script>{window.location.href=SpotifyURL}</script>
-    (async () => {
-      const response = await AccountService.login(
-        credentialsState.email,
-        credentialsState.password
-      );
-      if (response.status === 200) {
-        setCredentialsState({ email: "", password: "" });
-        localStorage.setItem("login_access_token", response.data.accessToken);
-        var decoded = jwt_decode(localStorage.getItem("login_access_token"));
-        if (decoded.roles == "DJ") {
-          login("DJ");
-        } else if (decoded.roles == "CLIENT") {
-          login("CLIENT");
+    if (credentialsState.email && credentialsState.password) {
+      (async () => {
+        const response = await AccountService.login(
+          credentialsState.email,
+          credentialsState.password
+        );
+        if (response.status === 200) {
+          setCredentialsState({ email: "", password: "" });
+          localStorage.setItem("login_access_token", response.data.accessToken);
+          var decoded = jwt_decode(localStorage.getItem("login_access_token"));
+          if (decoded.roles == "DJ") {
+            login("DJ");
+          } else if (decoded.roles == "CLIENT") {
+            login("CLIENT");
+          }
+        } else if (response.status === 204) {
+          setCredentialsState({email: "", password: ""});
+          Swal.fire("Incorrect credentials!", "Please try again.", "error");
         }
-      } else if (response.status === 204) {
-        setCredentialsState({
-          email: "",
-          password: "",
-          failureMessage: "Incorrect Credentials",
-        });
-      }
-    })();
-    // <script>{window.location.href=SpotifyURL}</script>
+      })();
+    } else {
+      Swal.fire(
+        "No credentials provided!",
+        "Please fill the fields for email and password.",
+        "warning"
+      );
+    }
   };
 
   const handleRedirectToRegister = (e) => {
@@ -78,24 +90,30 @@ export default function LoginPage() {
     <RegisterPage />
   ) : (
     <>
-      
       <div className="register-body">
         <div className="register-picture">
-        <a className="btn btn-success btn-lg" href={SpotifyURL}>
-        Login With Spotify
-      </a>
-      <img className="logo-transbg" src={logo} alt="logo" id="logo-trans"></img>
+          <a className="btn btn-success btn-lg" href={SpotifyURL}>
+            Login With Spotify
+          </a>
+          <img
+            className="logo-transbg"
+            src={logo}
+            alt="logo"
+            id="logo-trans"
+          ></img>
           <img src={photo} alt="login-picture"></img>
         </div>
-        <div className="register-credentials">
+        <div className="login-credentials">
           <div className="login-container">
             <h1 className="login-title">LOGIN</h1>
             <div className="email-container">
               <span>Email</span>
               <div className="email-input">
                 <input
+                  className="login-email-input"
                   name="email"
                   type="text"
+                  value={credentialsState.email}
                   onChange={onInputChange}
                 ></input>
               </div>
@@ -104,6 +122,7 @@ export default function LoginPage() {
               <span>Password</span>
               <div className="password-input">
                 <input
+                  className="login-password-input"
                   name="password"
                   type="password"
                   value={credentialsState.password}
@@ -114,22 +133,32 @@ export default function LoginPage() {
             <div className="forgot-pass">
               <ul>
                 <li>
-                  <Link className="forgot-pass-link" to="../playlists">Forgot password?</Link>
+                  <Link className="forgot-pass-link" to="../playlists">
+                    Forgot password?
+                  </Link>
                 </li>
               </ul>
             </div>
-            <div className="remember-me">
-              <input className="remember-checkbox" type="checkbox" id="remember"></input>
+            {/* <div className="remember-me">
+              <input
+                className="remember-checkbox"
+                type="checkbox"
+                id="remember"
+              ></input>
               <span className="checkmark"></span>
               <label for="remember">Remember me</label>
-            </div>
-            <div className="register-btn">
-              <a className="btn btn-success btn-lg" onClick={handleLogin} id="login-btn">
-                Login
+            </div> */}
+            <div className="login-btn">
+              <a
+                className="btn btn-success btn-lg"
+                onClick={handleLogin}
+                id="login-btn"
+              >
+                Log in
               </a>
             </div>
             <div className="new-account">
-              <span className="LoginText" onClick={() => redirectToRegister()}>
+              <span className="LoginText" id="redirect-register" onClick={() => redirectToRegister()}>
                 Don't have an account?
               </span>
             </div>

@@ -1,156 +1,241 @@
-import './PlaylistsPage.css';
-import Playlist from '../Components/Playlist';
-import recent from '../rec.png';
-import SearchBar from '../Components/SearchBar';
+import "./PlaylistsPage.css";
+import recent from "../rec.png";
+import SearchBar from "../Components/SearchBar";
 import CreatePlaylist from "../add-playlist-icon.png";
-import useAuth from '../useAuth';
-import PlaylistView from '../Components/PlaylistView';
-import { useState, useEffect } from 'react';
-import PlaylistCreation from '../api/playlistServices';
-import GeneralPlaylist from '../Components/GeneralPlaylist';
-import newPlaylist from "../newPlaylistImg.png"
-import NavBar from '../Components/NavBar';
-import { useResolvedPath, useMatch, Link } from 'react-router-dom';
-import logo from '../'
+import PlaylistView from "../Components/PlaylistView";
+import { useState, useEffect } from "react";
+import PlaylistCreation from "../api/playlistServices";
+import GeneralPlaylist from "../Components/GeneralPlaylist";
+import NavBar from "../Components/NavBar";
+import jwtDecode from "jwt-decode";
+import info from "../info.png";
+import infoHover from "../info-hov.png";
+import deleteIcon from "../delete.png";
+import deleteHover from "../delete-hover.png";
+import edit from "../edit.png";
+import editHover from "../edit-hover.png";
+import { useNavigate } from "react-router-dom";
+import InfoBox from "../Components/InfoBox";
+import Swal from "sweetalert2";
+import CreatePlaylistBox from "../Components/CreatePlaylistBox";
 
-export default function Playlists(){
-    // const accessToken = useAuth(code)
-    const [playlist, setPlaylist] = useState("");
-    const [userIdState, setUserIdState] = useState({
-        userId: "2"
-    });
-    const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
-    const [overlay, setOverlay] = useState(false);
+export default function Playlists() {
+  const accessToken = localStorage.getItem("spotify_access_token");
+  var decoded = jwtDecode(localStorage.getItem("login_access_token"));
+  const navigate = useNavigate();
+  const [showCreatePlaylistBox, setShowCreatePlaylistBox] = useState(false);
+  const [userIdState, setUserIdState] = useState({
+    userId: decoded.userId,
+  });
+  const [playlistsToDislay, setPlaylistsToDisplay] = useState([]);
+  const [playlistToShowInfo, setPlaylistToShowInfo] = useState([]);
+  const [overlayShown, setOverlayShown] = useState(false);
+  const [showInfoBox, setShowInfoBox] = useState(false);
+  const [infoOverlayShown, setInfoOverlayShown] = useState(false);
+  const [plToShowGenres, setPlToShowGenres] = useState([]);
 
-    const handleCreationRequest = async (e) => {
-        e.preventDefault();
-        setOverlay(true);
-        setPlaylist("created");
-      };
+  const handleCreationRequest = async (e) => {
+    e.preventDefault();
+    setShowCreatePlaylistBox((current) => !current);
+    setOverlayShown((current) => !current);
+  };
 
-    function isCreated(){
-        if(playlist !== ""){
-            return <PlaylistView />;
-        }
-    }
+  const playlistViewURL = "/playlist";
+  const handlePlaylistClick = (e, title) => {
+    navigate(playlistViewURL, { state: { title: title, userId: decoded.userId } });
+  };
 
-    const handlePlaylistClick = (e) => {
-        return <PlaylistView />
-    }
+  const handleInfoClick = (e, title) => {
+    (async () => {
+      const response = await PlaylistCreation.findPlaylistByTitleAndUserId(
+        title,
+        userIdState.userId
+      );
+      setPlaylistToShowInfo(response.data.playlist);
+    })();
+    (async () => {
+      const response = await PlaylistCreation.getPlaylistGenres(
+        playlistToShowInfo.id
+      );
+      // setPlToShowGenres(response.data);
+      console.log("GENRES, ", response.data);
 
-    useEffect(()=>{
-        (async() => {
-            const response = await PlaylistCreation.getUserPlaylists(userIdState.userId);
-            setPlaylistsToDisplay(response.data.playlists);
-            
+    })();
+    setShowInfoBox((current) => !current);
+    setInfoOverlayShown((current) => !current);
+    // showInfoBox();
+  };
+
+  const handleDeleteClick = (e, id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#1ac843",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        (async () => {
+          const response = await PlaylistCreation.deletePlaylist(id);
+          console.log("DELETE RESPONSE ", response.data);
         })();
-    },[]);
-
-    const [newPlaylistState, setNewPlaylistState] = useState({
-        playlistName: "",
-        userId: 2
+        Swal.fire("Deleted!", "Your playlist has been deleted.", "success");
+      }
     });
+  };
 
-    const onInputChange = (e) => {
-        setNewPlaylistState({ ...newPlaylistState, [e.target.name]: e.target.value });
-        console.log("plName after input change: " + newPlaylistState.playlistName)
-    };
+  useEffect(() => {
+    (async () => {
+      const response = await PlaylistCreation.getUserPlaylists(
+        userIdState.userId
+      );
+      setPlaylistsToDisplay(response.data.playlists);
+    })();
+  }, []);
 
-    const handleCreation = () => {
-        (async() => {
-            const response = await PlaylistCreation.newPlaylist(newPlaylistState.userId, newPlaylistState.playlistName);
-            console.log("Back-end returned: ", response);
-        })();
-        }
+  const hideCreatePlaylist = (e) => {
+    setOverlayShown((current) => !current);
+    setShowCreatePlaylistBox((current) => !current);
+  };
 
-    function showOverlay(){
-        return  <><input type="checkbox" id="toggle-1"></input>
-        <div className="page-overlay"></div>
-        
-        <div className="new-playlist-info">
-            <img src={newPlaylist} alt="decoration"></img>
-            <div className="pl-title">
-            <label>Playlist Title</label>
+  const hideInfoOverlay = (e) => {
+    setInfoOverlayShown((current) => !current);
+    setShowInfoBox((current) => !current);
+  };
+
+  return (
+    <>
+      <div className="menu-grid">
+        {overlayShown && (
+          <div className="playlist-overlay" onClick={hideCreatePlaylist}></div>
+        )}
+        {infoOverlayShown && (
+          <div className="info-overlay" onClick={hideInfoOverlay}></div>
+        )}
+        <div className="menu">
+          <NavBar />
+        </div>
+        <div className="content">
+          {showCreatePlaylistBox && <CreatePlaylistBox />}
+          {showInfoBox && <InfoBox playlist={playlistToShowInfo}/>}
+          <div className="pl-search-grid">
+            <div className="search">
+              <SearchBar accessToken={accessToken} />
             </div>
-            <div> <input name="playlistName" id="playlistName" type="text" placeholder="Give your playlist a title" onChange={onInputChange}></input></div>
-           <div className="pl-create-btn"><label onClick={handleCreation} type="submit">Create</label>
-          </div>   
-        </div></>
-    }
-
-    function normalState(){
-        if(overlay){
-            setOverlay(false)
-            return showOverlay()
-        }
-    }
-
-    useEffect(() => {
-        normalState()
-    }, [overlay])
-    
-
-
-    return (
-        <>
-        {/* <div>{code}</div> */}
-        <div className="menu-grid">
-    <div className="menu"> 
-    {/* <ul>    
-        <CustomLink to="/"><img src={logo} className="logo" alt="logo"/></CustomLink>
-      </ul>  */}
-    <NavBar />
-       </div>
-      <div className="content"> 
-      {isCreated()}
-        {normalState()}
-        <div className='search-bar'>
-            <SearchBar />
-        </div>
-          <div className="page-title">
-            <h1>My Playlists</h1>
-            <span className="nr-playlists">12 playlists</span>
-            {/* <div className='create-playlist'> */}
-            
-                <button className="create-playlist-btn" type='submit' onClick={handleCreationRequest}>
-                    <img src={CreatePlaylist} alt="create Playlist button"></img>
-                    <span>Create Playlist</span>
-                </button>
-                {/* <Link to={handleCreation}><img src={CreatePlaylist} alt='create playlist button'></img>Create Playlist</Link> */}
-            {/* </div> */}
+            <div className="page-title">
+              <h1>My Playlists</h1>
+              <span className="nr-playlists">
+                {playlistsToDislay.length} playlists
+              </span>
+            </div>
           </div>
-          <div className='page-content'>
-          <div className="symbols">
-                    <div className="nr-symbol"><p>#</p></div>
-                    <div className="title-symbol"><p>Title</p></div>
-                    
-                    <div className="DJ-symbol"><p>Date added</p></div>
-                    <div className="duration-symbol"><img src={recent} alt='duration'></img></div>
+          <div className="create-playlist-container">
+            <button
+              className="create-playlist-btn"
+              id="btn-create-pl"
+              type="submit"
+              onClick={handleCreationRequest}
+            >
+              <img src={CreatePlaylist} alt="create Playlist button"></img>
+              <span>Create Playlist</span>
+            </button>
+          </div>
+          <div className="page-content">
+            <div className="symbols">
+              <div className="nr-symbol">
+                <p>#</p>
+              </div>
+              <div className="title-symbol">
+                <p>Title</p>
+              </div>
+              <div className="DJ-symbol" id="dj-plays">
+                <p>Plays</p>
+              </div>
+              <div className="duration-symbol" id="dj-status">
+                <p>Status</p>
+              </div>
+            </div>
+            <hr id="pl-hr"></hr>
+            <div className="playlist-containers">
+              {playlistsToDislay.map((element, index) => (
+                <div className="playlist-row-dj">
+                  <div
+                    className="playlist-nr-dj"
+                    onClick={(e) => handlePlaylistClick(e, element.title)}
+                  >
+                    {index + 1}
+                  </div>
+                  <div className="pl-dj">
+                    <GeneralPlaylist
+                      title={element.title}
+                      id={element.id}
+                      img={element.imageUrl}
+                    />
+                  </div>
+                  <div
+                    className="pl-dj-played"
+                    onClick={(e) => handlePlaylistClick(e, element.title)}
+                  >
+                    {element.plays}
+                  </div>
+                  <div
+                    className="pl-status-dj"
+                    onClick={(e) => handlePlaylistClick(e, element.title)}
+                  >
+                    Published
+                  </div>
+                  <div className="pl-buttons-dj">
+                    <div className="pl-info-btn">
+                      <img
+                        className="info"
+                        src={info}
+                        alt="info-icon"
+                        onClick={(e) => handleInfoClick(e, element.title)}
+                      ></img>
+                      <img
+                        className="info-hover"
+                        src={infoHover}
+                        alt="info-icon"
+                        onClick={(e) => handleInfoClick(e, element.title)}
+                      ></img>
+                    </div>
+                    <div className="pl-edit-btn">
+                      <img
+                        className="edit"
+                        src={edit}
+                        alt="edit-icon"
+                        onClick={(e) => handlePlaylistClick(e, element.title)}
+                      ></img>
+                      <img
+                        className="edit-hover"
+                        src={editHover}
+                        alt="edit-icon"
+                        onClick={(e) => handlePlaylistClick(e, element.title)}
+                      ></img>
+                    </div>
+                    <div className="pl-delete-btn">
+                      <img
+                        className="delete"
+                        src={deleteIcon}
+                        alt="delete-icon"
+                      ></img>
+                      <img
+                        className="delete-hover"
+                        src={deleteHover}
+                        alt="delete-icon"
+                        onClick={(e) => handleDeleteClick(e, element.id)}
+                      ></img>
+                    </div>
+                  </div>
                 </div>
-                <hr id='pl-hr'></hr>
-                <div className='playlist-containers'>
-
-                    {playlistsToDislay.map((element, index) => ( 
-                        
-                        <div className='playlist-row' onClick={handlePlaylistClick}>
-                            <div className='playlist-nr'>{index+1}</div>
-                            <div className='pl'><GeneralPlaylist title={element.title} userId = {element.userId} /></div>
-                            <div className='date-added'>Feb 3, 2022</div>
-                            <div className='pl-duration'>4:12</div>
-                    </div>))}
-                </div>
-                </div>
+              ))}
+              {/* {isShown && <InfoBox playlist={playlistToShowInfo} />} */}
+            </div>
+          </div>
         </div>
-        </div>
-        </>
-    );
+      </div>
+    </>
+  );
 }
-
-// function CustomLink({to, children, ...props}){
-//     const resolvedPath = useResolvedPath(to)
-// return (
-//     <li >
-//         <Link to ={to} {...props}>{children}</Link>
-//     </li>
-// )
-// }

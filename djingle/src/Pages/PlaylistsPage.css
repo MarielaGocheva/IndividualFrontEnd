@@ -21,13 +21,17 @@ h2 {
     text-align: right;
 }
 
+.create-playlist-container {
+    margin-top: 2vh;
+}
+
 .create-playlist-btn {
     background-color: transparent;
     border-width: 0;
     color: white;
     font-size: larger;
     margin-left: 1vh;
-    opacity: 50%;
+    opacity: 95%;
 }
 
 .create-playlist-btn :hover {
@@ -40,10 +44,12 @@ h2 {
 
 .create-playlist-btn span {
     margin-left: 2vh;
+    top: -1vh;
+    position: relative;
 }
 
 .symbols{
-    margin-top: 4vh;
+    margin-top: 3vh;
     margin-left: 7.5vh;
     display: flex;
 }
@@ -85,56 +91,51 @@ opacity: 70%;
             opacity: 60%;
         }
 
-        .pl {
-            margin-left: 8vh;
-        }
-
-        .date-added {
-            margin-left: 48vh;
-        }
-
-        .pl-duration {
-            margin-left: 23vh;
-        }
-
-        .playlist-row {
+        .playlist-row-dj {
+            margin-left: 5vh;
             display: flex;
+            width: 93.9%;
         }
 
-        .playlist-row:hover {
+        .playlist-row-dj:hover {
             cursor: pointer;
             background-color: rgb(116, 103, 116, 0.2);
         }
 
-        .pl .playlist_container > div:nth-child(2) > div:nth-child(2){
-            font-size: 14pt;
+        .pl-dj .playlist_container > div:nth-child(2) > div:nth-child(2){
+            margin-top: -1.2vh;
+            margin-left: -1vh;
+            font-size: 18pt;
             font-weight: 600;
         }
 
-        .pl .playlist_container > div:nth-child(2){
+        .pl-dj .playlist_container > div:nth-child(2){
             margin-left: 2vh;
         }
 
-        .pl .playlist_container > div:first-child > :first-child{
-            width: 8vh;
+        .pl-dj .playlist_container > div:first-child > :first-child{
+            width: 9vh;
             margin-top: 0.5vh;
             margin-bottom: 0.2vh;
         }
 
-        .pl .playlist_container > div:nth-child(2) > p{
+        .pl-dj .playlist_container > div:nth-child(2) > p{
             opacity: 0;
         }
 
-        .pl .playlist_container > div:nth-child(2) > span{
-            font-size: 8pt;
+        .pl-dj .playlist_container > div:nth-child(2) > span{
+            font-size: 12pt;
             opacity: 80%;
             font-weight: 500;
-            bottom: 1vh;
+            margin-top: -2vh;
         }
 
-        .playlist-nr {
-            margin-left: 7.5vh;
+        .playlist-nr-dj {
+            margin-left: 4vh;
             margin-top: 3vh;
+            font-size: 16pt;
+            font-weight: 600;
+            opacity: 80%;
         }
 
 /*============================================================*/
@@ -151,3 +152,158 @@ input[id="toggle-1"]:checked ~ .page-overlay {
  input[id="toggle-1"]:checked ~ .new-playlist-info{
     visibility: hidden;
  }
+
+ .playlist-row-dj {
+    display: grid;
+grid-template-columns: 0.5fr 3fr repeat(3, 1.5fr);
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+    }
+    
+    .playlist-nr-dj { 
+        grid-area: 1 / 1 / 2 / 2; }
+    .pl-dj { grid-area: 1 / 2 / 2 / 3; }
+    .pl-dj-played{
+        margin-top: 12%;
+        text-align: center;
+        font-size: 14pt;
+        grid-area: 1 / 3 / 2 / 4;
+    }
+    .pl-status-dj { 
+        margin-top: 12%;
+        text-align: center;
+        font-size: 14pt;
+        grid-area: 1 / 4 / 2 / 5; }
+    .pl-buttons-dj { 
+        text-align: center;
+        font-size: 14pt;
+        grid-area: 1 / 5 / 2 / 6; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pl-buttons-dj img {
+        width: 3.5vh;
+    }
+
+    .info-hover {
+        position: absolute;
+        top:0;
+        left: 0;
+        display: none;
+    }
+
+    .edit-hover {
+        position: absolute;
+        top:0;
+        left: 0;
+        display: none;
+    }
+
+    .delete-hover {
+        position: absolute;
+        top:0;
+        left: 0;
+        display: none;
+    }
+
+    .pl-info-btn:hover .info-hover {
+        display: inline;
+        cursor: pointer;
+    }
+
+    .pl-edit-btn:hover .edit-hover {
+        display: inline;
+        cursor: pointer;
+    }
+
+    .pl-delete-btn:hover .delete-hover {
+        display: inline;
+        cursor: pointer;
+    }
+
+    .pl-info-btn {
+        position: relative;
+        margin-left: 0vh;
+    }
+
+    .pl-edit-btn {
+        position: relative;
+        margin-left: 1vh;
+    }
+
+    .pl-delete-btn {
+        position: relative;
+        margin-left: 1vh;
+    }
+
+    .swal2-container.swal2-center>.swal2-popup {
+        background-color: #2f2c31;
+        color: white;
+    }
+
+    .swal2-title {
+        color: white;
+    }
+
+    #content-pl-search {
+        justify-content: right;
+        align-items: right;
+        width: 25%;
+    }
+
+    .pl-search-grid {
+        display: grid;
+grid-template-columns: 7fr 4fr;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+    }
+
+    .search {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .page-content {
+        position: sticky;
+    }
+
+    .playlist-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        background-color: #00000066;
+    }
+    
+    .info-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        background-color: #00000066;
+    }
+
+    .playlist-containers {
+        height: 70vh;
+        overflow-y: scroll;
+    }
+
+    .page-title {
+        display: grid;
+grid-template-columns: 1fr 3fr;
+grid-template-rows: 1fr;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+    }
+
+    .page-title span {
+        font-size: 16pt;
+        margin-top: 6vh;
+    }
+
+    #btn-create-pl {
+        margin-left: 5vh;
+    }

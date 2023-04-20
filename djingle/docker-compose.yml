@@ -1,0 +1,12 @@
+  version: "3"
+  services:
+    frontend:
+      build:
+        context: ""
+      volumes:
+        - ./djingle/src:/code/src
+        - /project/node_modules
+      ports:
+        - 3000:3000
+      image: frontend:latest
+      container_name: frontend-container

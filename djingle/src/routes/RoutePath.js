@@ -9,6 +9,9 @@ import PERMISSIONS from "../permissions/Permissions";
 import Playlists from "../Pages/PlaylistsPage";
 import ArtistPage from "../Pages/ArtistPage";
 import PlaylistViewClient from "../Pages/PlaylistViewClient";
+import RecentlyPlayed from "../Pages/RecentlyPlayed";
+import PlaylistView from "../Components/PlaylistView";
+import ClientLibrary from "../Pages/ClientLibrary";
 
 const RoutePath = () => {
     return (
@@ -27,6 +30,14 @@ const RoutePath = () => {
           }
         />
         <Route
+          path='/recentlyPlayed'
+          element={
+            <Authentication>
+              <RecentlyPlayed />
+            </Authentication>
+          }
+        />
+        <Route
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
           <Route path='/client' element={<ClientHomePage />} />
@@ -34,13 +45,32 @@ const RoutePath = () => {
         <Route
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
-          <Route path='/artist' element={<ArtistPage id={2}/>} />
+          <Route path='/library' element={<ClientLibrary />} />
         </Route>
         <Route
           element={<Authorization permissions={[PERMISSIONS.CAN_VIEW_CLIENT]} />}
         >
-          <Route path='/artist/playlist' element={<PlaylistViewClient />} />
+          <Route path='/artist' element={<ArtistPage />} />
         </Route>
+    
+        <Route
+          path='/artist/playlist'
+          element={
+            <Authentication>
+              <PlaylistViewClient />
+            </Authentication>
+          }
+        />
+        <Route
+          path='/playlist'
+          element={
+            <Authentication>
+              <PlaylistView />
+            </Authentication>
+          }
+        />
+          {/* <Route path='/artist/playlist' element={} /> */}
+      
         <Route path='/login' element={<LoginPage />} />
       </Routes>
     );

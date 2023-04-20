@@ -93,8 +93,10 @@ opacity: 70%;
         }
 
         .trending{
-            margin-top: 2vh;
+            /* margin-top: 2vh; */
             margin-left: 5vh;
+            height: 36.5vh;
+            overflow-y: scroll;
         }
 
         .trending-row {
@@ -160,8 +162,14 @@ opacity: 70%;
     margin-top: 3vh;
 }
 
+.search_songs_grid h1 {
+    margin-top: 9vh;
+}
+
 .song-containers {
-    margin-top: 5vh;
+    margin-top: 3vh;
+    height: 71vh;
+    overflow-y: scroll;
 }
 
 .song-containers .song-container {

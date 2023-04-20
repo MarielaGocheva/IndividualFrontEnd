@@ -32,6 +32,15 @@
         text-align: left;
     }
 
+    .song-info h4 {
+        margin-top: 2vh;
+        margin-left: 1vw;
+    }
+
+    .song-info span {
+        margin-left: 1vw;
+    }
+
     .song-btn { 
         grid-area: 1 / 3 / 2 / 4;
         position: absolute;
