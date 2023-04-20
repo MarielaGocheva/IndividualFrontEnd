@@ -1,0 +1,15 @@
+.playlis-view-client {
+    height: 100%;
+    display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: repeat(2, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+}
+
+.playlist-view-details { grid-area: 1 / 1 / 2 / 2; }
+.playlist-view-songs { grid-area: 2 / 1 / 3 / 2; }
+
+.playlist-view-img img {
+    width: 30vh;
+}

@@ -1,0 +1,10 @@
+.btn {
+    width: 16vh;
+    height: 4vh;
+    border-radius: 45px;
+}
+
+.btn:hover {
+    background-color: blueviolet;
+    cursor: pointer;
+}
